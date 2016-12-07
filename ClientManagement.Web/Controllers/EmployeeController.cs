@@ -5,19 +5,32 @@ using System.Web;
 using System.Web.Mvc;
 using ClientManagement.Core.Models;
 using ClientManagement.Tests.Helpers;
+using ClientManagement.Core.Services;
+using Microsoft.AspNet.Identity;
+using ClientManagement.Core.Repositories.Db;
 
 namespace ClientManagement.Web.Controllers
 {
     public class EmployeeController : Controller
     {
+        private readonly IEmployeeServices _employeeService;
+
+        public EmployeeController(IEmployeeServices employeeService)
+        {
+            _employeeService = employeeService;
+        }
+
+        //public EmployeeController()
+        //{
+        //    var repo = new EmployeeRepository();
+        //    _employeeService = new EmployeeServices(repo);
+        //}
+
         // GET: Employee
         public ActionResult Index()
         {
             var projects = ProjectData.Projects;
-        
-
-
-        var employees = new List<Employee>
+            var employees = new List<Employee>
             {
                 new Employee { Id = Guid.NewGuid(), Firstname = "Emeka", Lastname = "Onwuzulike",Gender=Gender.Male,Projects=projects},
                 new Employee { Id = Guid.NewGuid(), Firstname = "Chinyere", Lastname = "Okoh",Gender=Gender.Female,Projects=projects }
@@ -34,17 +47,6 @@ namespace ClientManagement.Web.Controllers
             return View();
         }
 
-        // GET: Employee/
-        public ActionResult AddEmployeeToProject()
-        {
-            return View();
-        }
-
-        public ActionResult RemoveEmployeeToProject()
-        {
-            return View();
-        }
-
         //Get : Employee/Create
         public ActionResult Create()
         {
@@ -53,11 +55,12 @@ namespace ClientManagement.Web.Controllers
 
         // POST: Employee/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Employee employee)
         {
             try
             {
-                // TODO: Add insert logic here
+                employee.ApplicationUserId = User.Identity.GetUserId();
+                _employeeService.Save(employee);
 
                 return RedirectToAction("Index");
             }

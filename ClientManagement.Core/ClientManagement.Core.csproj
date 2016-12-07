@@ -65,15 +65,17 @@
     <Compile Include="Models\ProjectStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Db\ClientManagementContext.cs" />
-    <Compile Include="Repositories\FileSystem\ClientRepository.cs" />
-    <Compile Include="Repositories\FileSystem\EmployeeRepository.cs" />
+    <Compile Include="Repositories\Db\EmployeeRepository.cs" />
+    <Compile Include="Repositories\FileSystem\ClientFileSystemRepository.cs" />
+    <Compile Include="Repositories\FileSystem\EmployeeFileSystemRepository.cs" />
     <Compile Include="Repositories\IProjectRepository.cs" />
-    <Compile Include="Repositories\FileSystem\ProjectRepository.cs" />
+    <Compile Include="Repositories\FileSystem\ProjectFileSystemRepository.cs" />
     <Compile Include="Repositories\IClientRepository.cs" />
     <Compile Include="Repositories\IEmployeeRepository.cs" />
     <Compile Include="Repositories\Db\ProjectRepository.cs" />
     <Compile Include="Services\ClientServices.cs" />
     <Compile Include="Services\EmployeeServices.cs" />
+    <Compile Include="Services\IEmployeeServices.cs" />
     <Compile Include="Services\ProjectServices.cs" />
   </ItemGroup>
   <ItemGroup>

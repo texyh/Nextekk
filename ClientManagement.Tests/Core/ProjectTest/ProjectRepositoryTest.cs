@@ -40,7 +40,7 @@ namespace ClientManagement.Tests.Core.ProjectTest
             [TestMethod, TestCategory(IntegrationTest)]
             public void Should_Be_Able_To_Create_ProjectRepository_Instance()
             {
-                var repo = new ProjectRepository();
+                var repo = new ProjectFileSystemRepository();
 
                 Assert.IsNotNull(repo);
 
@@ -62,7 +62,7 @@ namespace ClientManagement.Tests.Core.ProjectTest
             [TestMethod, TestCategory(IntegrationTest)]
             public void Should_Be_Able_To_Read_All_Project()
             {
-                var repo = new ProjectRepository();
+                var repo = new ProjectFileSystemRepository();
                 var projects = repo.GetAllProjects();
 
                 Assert.AreEqual(2, projects.Count);

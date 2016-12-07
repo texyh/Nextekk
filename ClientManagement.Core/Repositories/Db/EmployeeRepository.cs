@@ -7,7 +7,7 @@ using ClientManagement.Core.Models;
 
 namespace ClientManagement.Core.Repositories.Db
 {
-    class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         private readonly ClientManagementContext _context;
         private readonly bool _externalContext;

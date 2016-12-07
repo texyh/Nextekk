@@ -7,7 +7,7 @@ using System.Data.Entity;
 using ClientManagement.Core.Models;
 namespace ClientManagement.Core.Repositories.Db
 {
-    class ClientManagementContext:DbContext
+    public class ClientManagementContext:DbContext
     {
         
         public ClientManagementContext()

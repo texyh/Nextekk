@@ -40,8 +40,7 @@ namespace ClientManagement.Web.Controllers
             }
         }
 
-        public ApplicationUserManager 
-            UserManager
+        public ApplicationUserManager UserManager
         {
             get
             {
@@ -80,8 +79,7 @@ namespace ClientManagement.Web.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index", "Employee");
-
+                    return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -157,7 +155,6 @@ namespace ClientManagement.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -166,7 +163,7 @@ namespace ClientManagement.Web.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Create", "Employee");
+                    return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }

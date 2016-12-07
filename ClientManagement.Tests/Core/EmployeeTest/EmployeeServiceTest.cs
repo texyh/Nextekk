@@ -62,6 +62,7 @@ namespace ClientManagement.Tests.Core.EmployeeTest
             Assert.IsInstanceOfType(employees, typeof(List<Employee>));
         }
 
+        /*
         [TestMethod, TestCategory(UnitTest)]
         public void Should_Be_Able_To_Assign_Project_To_An_Employee()
         {
@@ -106,7 +107,7 @@ namespace ClientManagement.Tests.Core.EmployeeTest
             Assert.AreEqual(0, employee.NumberOfProjects());
         }
 
-
+    */
 
     }
 }
