@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace ClientManagement.Core.Repositories.FileSystem
 {
-    interface IClientrepository
+    public interface IClientRepository
     {
 
-        void CreateClient(ClientEntity client);
-        void EditClient(ClientEntity client);
-        List<ClientEntity> GetAllClients();
-        ClientEntity GetClient(Guid Id);
+        void Create(Client client);
+        void EditClient(Client client);
+        List<Client> GetAllClients();
+        Client GetClient(Guid Id);
         void PersistClient();
     }
 }

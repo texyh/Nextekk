@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClientManagement.Core.Models;
-using ClientManagement.Core.Repositories.FileSystem;
+using ClientManagement.Core.Repositories;
 
 
 namespace ClientManagement.Core.Services
 {
-    class ProjectServices
+    public class ProjectServices
     {
-        private IProjectrepository _projectRepository;
-        public ProjectServices(IProjectrepository projectRepository) {
+        private IProjectRepository _projectRepository;
+        public ProjectServices(IProjectRepository projectRepository) {
             _projectRepository = projectRepository;
         }
         
@@ -29,7 +29,7 @@ namespace ClientManagement.Core.Services
             return Project;
         }
 
-        public Project ToProject(ProjectEntity projectEntity)
+        public Project ToProject(Project projectEntity)
         {
             var project = new Project();
             project.Id = projectEntity.Id;
@@ -40,17 +40,16 @@ namespace ClientManagement.Core.Services
 
         }
 
-        public void AddEmployee(EmployeeEntity employee,Guid projectId)
+        public void AddEmployeeToProject(Employee employee,Project project)
         {
-            var Project = GetProject(projectId);
-            Project.AddEmploye(employee);
+            project.AddEmploye(employee);
         }
 
-        public void AssignClient(ClientEntity client,Guid projectId)
+       /* public void AssignClient(Client client,Guid projectId)
         {
             var Project = GetProject(projectId);
             Project.Client = client;
-        }
+        }*/
 
 
 

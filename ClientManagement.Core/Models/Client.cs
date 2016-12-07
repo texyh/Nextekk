@@ -12,15 +12,16 @@ namespace ClientManagement.Core.Models
     {
         public Client()
         {
-            Projects = new List<ProjectEntity>();
+            Projects = new List<Project>();
         }
         public Guid Id { get; set; }
         public string  ClientName{get;set;}
         public string Address { get; set; }
-        public List<ProjectEntity> Projects { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
 
 
-        public void AddProject(ProjectEntity project)
+
+        public void AddProject(Project project)
         {
             var cantAddProject = CantAddProject(project);
             if (cantAddProject)
@@ -34,10 +35,15 @@ namespace ClientManagement.Core.Models
             return Projects.Count;
         }
 
-        public bool CantAddProject(ProjectEntity project)
+        public bool CantAddProject(Project project)
         {
             return Projects.Contains(project);
 
+        }
+
+        public List<Project> GetProjects()
+        {
+            return Projects.ToList();
         }
 
 

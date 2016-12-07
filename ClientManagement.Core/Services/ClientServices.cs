@@ -9,28 +9,27 @@ using ClientManagement.Core.Repositories.FileSystem;
 
 namespace ClientManagement.Core.Services
 {
-    class ClientServices
+    public class ClientServices
     {
-        private IClientrepository _clientrepository;
-        public ClientServices(IClientrepository clientrepository)
+        private IClientRepository _clientrepository;
+        public ClientServices(IClientRepository clientrepository)
         {
             _clientrepository = clientrepository;
         }
         public List<Client> GetAllClients()
         {
-            var clientEntity = _clientrepository.GetAllClients();
-            var clients = clientEntity.Select(x => ToClient(x)).ToList();
-            return clients;
+            var Clients = _clientrepository.GetAllClients();
+            return Clients;
         }
 
         public Client GetClient(Guid Id)
         {
-            var clients = GetAllClients();
-            var client = clients.FirstOrDefault(x => x.Id == Id);
+            var Clients = GetAllClients();
+            var client = Clients.FirstOrDefault(x => x.Id == Id);
             return client;
         }
 
-        public Client ToClient(ClientEntity clientEntity)
+        public Client ToClient(Client clientEntity)
         {
             var client = new Client();
             client.Id = clientEntity.Id;
@@ -39,17 +38,18 @@ namespace ClientManagement.Core.Services
             return client;
         }
 
-        public void AddProject(Guid clientID,ProjectEntity project)
+        public void AddProjectToClient(Client client,Project project)
         {
-            var client = GetClient(clientID);
+            
             client.AddProject(project);
         }
 
-        public List<ProjectEntity> GetProjects(Guid ClientId)
+        public List<Project> GetAllClientProjects(Guid ClientId)
         {
             var client = GetClient(ClientId);
-            return client.Projects.ToList();
+            return client.GetProjects();
         }
+
 
     }
 }

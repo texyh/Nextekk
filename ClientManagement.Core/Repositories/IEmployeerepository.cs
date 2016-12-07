@@ -4,12 +4,11 @@ using ClientManagement.Core.Models;
 
 namespace ClientManagement.Core.Repositories
 {
-    public interface IEmployeerepository
+    public interface IEmployeeRepository
     {
-        void CreateEmployee(EmployeeEntity employeeEntity);
-        List<EmployeeEntity> GetAllEmployees();
-        EmployeeEntity GetEmployee(Guid Id);
-        void PersistEmployees();
-        void UpdateEmployee(EmployeeEntity employeeEntity);
+        void Create(Employee employee);
+        List<Employee> GetAllEmployees();
+        Employee GetEmployee(Guid Id);
+        void Update(Employee employee);
     }
 }

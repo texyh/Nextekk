@@ -25,14 +25,14 @@ namespace ClientManagement.Tests.Helpers
             }
         }
 
-        public static List<EmployeeEntity> EmployeeEntities
+        public static List<Employee> EmployeeEntities
         {
             get
             {
-                return new List<EmployeeEntity>
+                return new List<Employee>
                 {
-                    new EmployeeEntity { Id = User1Id, Firstname = "Emeka", Lastname = "Onwuzulike",Gender="Male"},
-                    new EmployeeEntity { Id = User2Id, Firstname = "Chinyere", Lastname = "Okoh",Gender="FeMale" }
+                    new Employee { Id = User1Id, Firstname = "Emeka", Lastname = "Onwuzulike",Gender=Gender.Male},
+                    new Employee { Id = User2Id, Firstname = "Chinyere", Lastname = "Okoh",Gender=Gender.Female }
                 };
             }
         }
@@ -43,30 +43,30 @@ namespace ClientManagement.Tests.Helpers
             {
                 return new List<Employee>
                 {
-                    new Employee { Id = User1Id, Firstname = "James", Lastname = "Don", Gender="Male" },
-                    new Employee { Id = User2Id, Firstname = "Lola", Lastname = "Igwe", Gender="FeMale"}
+                    new Employee { Id = User1Id, Firstname = "James", Lastname = "Don", Gender=Gender.Male },
+                    new Employee { Id = User2Id, Firstname = "Lola", Lastname = "Igwe", Gender=Gender.Female}
                 };
             }
         }
 
-        public static EmployeeEntity employee
+        public static Employee employee
         {
             get
             {
 
 
-                return new EmployeeEntity { Id = User1Id, Firstname = "James", Lastname = "Don", Gender = "Male" };
+                return new Employee { Id = User1Id, Firstname = "James", Lastname = "Don", Gender = Gender.Male };
                
             }
         }
 
-        public static EmployeeEntity employee2
+        public static Employee employee2
         {
             get
             {
 
 
-                return new EmployeeEntity { Id = User2Id, Firstname = "James", Lastname = "Don", Gender = "Male" };
+                return new Employee { Id = User2Id, Firstname = "James", Lastname = "Don", Gender = Gender.Female };
 
             }
         }

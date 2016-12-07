@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="57d4b5ae-34bc-4afe-9dfb-a509a843e63e" ChangeDateTime="12/06/2016 10:56:38">
+    <Property Name="ElementName" Value="[dbo].[FK_Employee_]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Employee]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Employee_Project]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b84f8eb7-3d05-493c-8625-8b4845c36faf" ChangeDateTime="12/06/2016 12:35:14">
+    <Property Name="ElementName" Value="[dbo].[FK_Employee_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Employee]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Employee_Project]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="41d2a9ec-ff33-472c-a4e7-6fb21b9af973" ChangeDateTime="12/06/2016 12:35:41">
+    <Property Name="ElementName" Value="[dbo].[FK_Employee_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Employee]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Employee_UserTable]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b72d7333-99f1-4b7b-a5bf-bd8c37a89b43" ChangeDateTime="12/06/2016 15:50:28">
+    <Property Name="ElementName" Value="[dbo].[Client].[Cli]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Client]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ClientName" />
+  </Operation>
+</Operations>

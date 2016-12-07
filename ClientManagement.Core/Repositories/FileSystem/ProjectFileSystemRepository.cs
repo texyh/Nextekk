@@ -12,14 +12,14 @@ using System.IO;
 
 namespace ClientManagement.Core.Repositories.FileSystem
 {
-    class Projectrepository : IProjectrepository
+    public class ProjectFileSystemRepository : IProjectRepository
     {
         private readonly string File_Path = ConfigurationManager.AppSettings["ProjectFilePath"];
         private static ReaderWriterLockSlim _readerWriterLock = new ReaderWriterLockSlim();
-        private List<ProjectEntity> _projects;
+        private List<Project> _projects;
 
 
-        public List<ProjectEntity> GetAllProjects()
+        public List<Project> GetAllProjects()
         {
             if (_projects != null)
                 return _projects;
@@ -35,19 +35,19 @@ namespace ClientManagement.Core.Repositories.FileSystem
                 _readerWriterLock.ExitReadLock();
             }
 
-            _projects = DeserializeObject<List<ProjectEntity>>(ProjectJson)
-                ?? new List<ProjectEntity>();
+            _projects = DeserializeObject<List<Project>>(ProjectJson)
+                ?? new List<Project>();
             return _projects;
         }
 
-        public ProjectEntity GetProject(Guid Id)
+        public Project GetProject(Guid Id)
         {
             var Projects = GetAllProjects();
             var Project = Projects.FirstOrDefault(p => p.Id == Id);
             return Project;
         }
 
-        public void EditProject(ProjectEntity projectEntity)
+        public void EditProject(Project projectEntity)
         {
             var project = GetProject(projectEntity.Id);
             if (project == null)
@@ -60,7 +60,7 @@ namespace ClientManagement.Core.Repositories.FileSystem
             PersistProject();
         }
 
-        public void CreateProject(ProjectEntity projectEntity)
+        public void Create(Project projectEntity)
         {
             var projects = GetAllProjects();
             projectEntity.Id = Guid.NewGuid();
@@ -76,7 +76,7 @@ namespace ClientManagement.Core.Repositories.FileSystem
             _readerWriterLock.EnterWriteLock();
             try
             {
-                File.WriteAllText(ProjectJson, File_Path);
+                File.WriteAllText(File_Path, ProjectJson);
             }
             finally
             {

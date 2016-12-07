@@ -13,13 +13,13 @@ using ClientManagement.Core.Models;
 namespace ClientManagement.Core.Repositories
 {
 
-    class Filesystemrepositories : IEmployeerepository
+    public class EmployeeFileSystemRepository : IEmployeeRepository
     {
         private readonly string File_Path = ConfigurationManager.AppSettings["EmployeeFilePath"];
         private static ReaderWriterLockSlim _readerWriterLock = new ReaderWriterLockSlim();
-        private List<EmployeeEntity> _employees;
+        private List<Employee> _employees;
 
-        public List<EmployeeEntity> GetAllEmployees()
+        public List<Employee> GetAllEmployees()
         {
             if (_employees!=null)
                return _employees;
@@ -36,21 +36,21 @@ namespace ClientManagement.Core.Repositories
                 _readerWriterLock.ExitReadLock();
             }
 
-            _employees = DeserializeObject<List<EmployeeEntity>>(employeejson)
-                ?? new List<EmployeeEntity>();
+            _employees = DeserializeObject<List<Employee>>(employeejson)
+                ?? new List<Employee>();
 
             return _employees;
 
         }
 
-        public EmployeeEntity GetEmployee(Guid Id)
+        public Employee GetEmployee(Guid Id)
         {
             var employees = GetAllEmployees();
             var employee = employees.FirstOrDefault(x => x.Id == Id);
             return employee;
         }
 
-        public void CreateEmployee(EmployeeEntity employeeEntity)
+        public void Create(Employee employeeEntity)
         {
             var employees = GetAllEmployees();
             employeeEntity.Id = Guid.NewGuid();
@@ -58,7 +58,7 @@ namespace ClientManagement.Core.Repositories
             PersistEmployees();
         }
 
-        public void UpdateEmployee(EmployeeEntity employeeEntity)
+        public void Update(Employee employeeEntity)
         {
             var employee = GetEmployee(employeeEntity.Id);
             if (employee == null)

@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static ClientManagement.Tests.Constants;
 using ClientManagement.Core.Models;
 using ClientManagement.Core.Exceptions;
+using ClientManagement.Tests.Helpers;
+using System.Collections.Generic;
 
 namespace ClientManagement.Tests.Core.ClientTest
 {
@@ -56,7 +58,7 @@ namespace ClientManagement.Tests.Core.ClientTest
             client.Id = Guid.NewGuid();
             client.ClientName = "Ministry of Petroleum Resources";
             client.Address = "Plot 143 summer street kubwa";
-            var project = new ProjectEntity();
+            var project = new Project();
             project.Id = Guid.NewGuid();
             project.Status = ProjectStatus.Completed;
             project.Description = "Renovation of classroom blocks";
@@ -75,7 +77,7 @@ namespace ClientManagement.Tests.Core.ClientTest
             client.Id = Guid.NewGuid();
             client.ClientName = "Ministry of Petroleum Resources";
             client.Address = "Plot 143 summer street kubwa";
-            var project = new ProjectEntity();
+            var project = new Project();
             project.Id = Guid.NewGuid();
             project.Status = ProjectStatus.Completed;
             project.Description = "Renovation of classroom blocks";
@@ -83,6 +85,27 @@ namespace ClientManagement.Tests.Core.ClientTest
             client.AddProject(project);
             client.AddProject(project);
         
+        }
+
+        [TestMethod, TestCategory(UnitTest)]
+        public void Should_Be_Able_To_Retrieve_All_Projects_Added_To_A_Client()
+        {
+            var client = ClientData.client;
+
+            var project = new Project();
+            project.Id = Guid.NewGuid();
+            project.Status = ProjectStatus.Completed;
+            project.Description = "Renovation of classroom blocks";
+            project.Title = "Renovation of classromm blocks for uyo primary school";
+
+            var project2 = ProjectData.project;
+
+            client.AddProject(project);
+            client.AddProject(project2);
+
+            Assert.AreEqual(2, client.NumberOfProjects());
+            Assert.IsInstanceOfType(client.GetProjects(), typeof(List<Project>));
+
         }
     }
 }

@@ -10,16 +10,15 @@ namespace ClientManagement.Core.Services
 {
     public class EmployeeServices
     {
-        private IEmployeerepository _employeerepository;
+        private IEmployeeRepository _employeerepository;
 
-        public EmployeeServices(IEmployeerepository employeerepository)
+        public EmployeeServices(IEmployeeRepository employeerepository)
         {
             _employeerepository = employeerepository;
         }
         public List<Employee> GetAllEmployees()
         {
-            var employeeEntity = _employeerepository.GetAllEmployees();
-            var employees = employeeEntity.Select(x => ToEmployee(x)).ToList();
+            var employees = _employeerepository.GetAllEmployees();
             return employees;
            
         }
@@ -31,28 +30,26 @@ namespace ClientManagement.Core.Services
             return employee;
         }
 
-        public Employee ToEmployee(EmployeeEntity employeeEntity)
-        {
-            var employee = new Employee();
-            employee.Id = employeeEntity.Id;
-            employee.Firstname = employeeEntity.Firstname;
-            employee.Lastname = employeeEntity.Lastname;
-            employee.Gender = employeeEntity.Gender;
-            return employee;
-        }
-
-     
-        public void AssignProjectToEmployee(Employee employee,ProjectEntity project)
+        /*
+        public void AssignProjectToEmployee(Employee employee,Project project)
         {
            
             employee.AssignProject(project);
         }
 
-        public void RemoveEmployeeFromProject(Guid EmployeeId, ProjectEntity project)
+        public void RemoveEmployeeFromProject(Employee employee,Project project)
         {
-            var employee = GetEmployee(EmployeeId);
             employee.RemoveProject(project);
         }
+        */
+
+        public ICollection<Project> EmployeeProjects(Guid employeeId)
+        {
+            var employee = GetEmployee(employeeId);
+            var employeeProjects = employee.GetProjects();
+            return employeeProjects;
+        }
+
 
     }
 }

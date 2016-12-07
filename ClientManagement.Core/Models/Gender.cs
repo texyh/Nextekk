@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ClientManagement.Core.Models
 {
-    public class ClientEntity
+    public enum Gender
     {
-        public Guid Id { get; set; }
-        public string ClientName { get; set; }
+        Undisclosed = 0,
+        Male = 1,
+        Female = 2,
 
-        public string Address { get; set; }
-       
+
     }
 }

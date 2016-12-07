@@ -11,18 +11,23 @@ namespace ClientManagement.Core.Models
     {
         public Project()
         {
-            Employees = new List<EmployeeEntity>();
+            Employees = new List<Employee>();
         }
         public Guid Id { get; set; }
 
         public string Title { get; set; }
+
         public string Description { get; set; }
-        public ClientEntity Client { get; set; }
-
         public ProjectStatus Status { get; set; }
-        private List<EmployeeEntity> Employees { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public Guid EmployeeId { get; set; }
 
-        public void AddEmploye (EmployeeEntity employeeEntity)
+        public Guid ClientId { get; set; }
+
+        public virtual ICollection<Employee> Employees { get; set; }
+
+        public void AddEmploye (Employee employeeEntity)
         {
             if (CantAddEmployee(employeeEntity))
                 throw new EmployeeExistException("Employee Already Added to Project");
@@ -35,7 +40,7 @@ namespace ClientManagement.Core.Models
             return Employees.Count;
         }
 
-        public bool CantAddEmployee(EmployeeEntity employee)
+        public bool CantAddEmployee(Employee employee)
         {
             return Employees.Contains(employee);
 

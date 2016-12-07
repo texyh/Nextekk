@@ -13,14 +13,14 @@ using Newtonsoft.Json;
 
 namespace ClientManagement.Core.Repositories.FileSystem
 {
-    class Clientrepository : IClientrepository
+    public class ClientFileSystemRepository : IClientRepository
     {
         private readonly string File_Path = ConfigurationManager.AppSettings["ClientFilePath"];
         private static ReaderWriterLockSlim _readerWriterLock = new ReaderWriterLockSlim();
-        private List<ClientEntity> _clients;
+        private List<Client> _clients;
 
        
-        public List<ClientEntity> GetAllClients()
+        public List<Client> GetAllClients()
         {
             if (_clients != null)
                 return _clients;
@@ -36,13 +36,13 @@ namespace ClientManagement.Core.Repositories.FileSystem
                 _readerWriterLock.ExitReadLock();
             }
 
-             _clients = DeserializeObject<List<ClientEntity>>(clientJson)
-                ?? new List<ClientEntity>();
+             _clients = DeserializeObject<List<Client>>(clientJson)
+                ?? new List<Client>();
             return _clients;
 
         }
 
-        public ClientEntity GetClient(Guid Id)
+        public Client GetClient(Guid Id)
         {
             var clients = GetAllClients();
             var client = clients.FirstOrDefault(x => x.Id == Id);
@@ -51,7 +51,7 @@ namespace ClientManagement.Core.Repositories.FileSystem
 
 
 
-        public void CreateClient(ClientEntity client)
+        public void Create(Client client)
         {
             var clients = GetAllClients();
             client.Id = Guid.NewGuid();
@@ -59,7 +59,7 @@ namespace ClientManagement.Core.Repositories.FileSystem
             PersistClient();
         }
 
-        public void EditClient(ClientEntity client)
+        public void EditClient(Client client)
         {
             client = GetClient(client.Id);
             if (client == null)

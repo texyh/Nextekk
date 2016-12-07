@@ -11,15 +11,18 @@ namespace ClientManagement.Core.Models
     {
         public Employee()
         {
-            Projects = new List<ProjectEntity>();
+            Projects = new List<Project>();
         }
         public Guid Id { get; set; }
         public string Lastname { get; set; }
         public string Firstname { get; set; }
-        public string Gender { get; set; }
-        private List<ProjectEntity> Projects { get; set; }
+        public Gender Gender { get; set; }
+        public Guid ProjectId { get; set; }
+        public string ApplicationUserId { get; set; }
 
-        public void AssignProject(ProjectEntity project)
+        public virtual ICollection<Project> Projects { get; set; }
+
+        public void AssignProject(Project project)
         {
             var cantAssignProject = CantAssignProject(project);
             if (cantAssignProject)
@@ -33,27 +36,27 @@ namespace ClientManagement.Core.Models
             return Projects.Count;
         }
 
-        public bool CantAssignProject(ProjectEntity project)
+        public bool CantAssignProject(Project project)
         {
-            return Projects.Contains(project);
-            
+            return Projects.Contains(project);    
         }
 
-        public void RemoveProject(ProjectEntity projectEntity)
+        public void RemoveProject(Project projectEntity)
         {
             var project = Projects.Contains(projectEntity);
             if (project)
             {
                 Projects.Remove(projectEntity);
-
             }
             else
             {
                 throw new InvalidOperationException("Project not found");
-
             }
+        }
 
-
+        public ICollection<Project> GetProjects()
+        {
+            return Projects;
         }
     }
 }

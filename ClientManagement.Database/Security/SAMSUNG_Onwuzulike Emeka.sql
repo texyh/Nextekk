@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [SAMSUNG\Onwuzulike Emeka]
+    FROM WINDOWS WITH DEFAULT_LANGUAGE = [us_english];
+

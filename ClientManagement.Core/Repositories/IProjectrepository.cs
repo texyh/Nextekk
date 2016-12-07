@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using ClientManagement.Core.Models;
 
 
-namespace ClientManagement.Core.Repositories.FileSystem
+namespace ClientManagement.Core.Repositories
 {
-    interface IProjectrepository
+    public interface IProjectRepository
     {
-        void CreateProject(ProjectEntity projectEntity);
-        void EditProject(ProjectEntity projectEntity);
-        List<ProjectEntity> GetAllProjects();
-        ProjectEntity GetProject(Guid Id);
+        void Create(Project projectEntity);
+        void EditProject(Project projectEntity);
+        List<Project> GetAllProjects();
+        Project GetProject(Guid Id);
         void PersistProject();
     }
 }

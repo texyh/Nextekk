@@ -18,14 +18,14 @@ namespace ClientManagement.Tests.Core.EmployeeTest
     [TestClass]
     public class EmployeeServiceTest
     {
-        private Mock<IEmployeerepository> _employeeRepoMock;
+        private Mock<IEmployeeRepository> _employeeRepoMock;
 
         [TestInitialize]
         public void BeforeEach()
         {
 
             var employees = EmployeeData.EmployeeEntities;
-            _employeeRepoMock = new Mock<IEmployeerepository>();
+            _employeeRepoMock = new Mock<IEmployeeRepository>();
             _employeeRepoMock.Setup(x => x.GetAllEmployees()).Returns(employees);
             _employeeRepoMock
                 .Setup(x => x.GetEmployee(It.IsAny<Guid>()))
@@ -63,7 +63,7 @@ namespace ClientManagement.Tests.Core.EmployeeTest
         }
 
         [TestMethod, TestCategory(UnitTest)]
-        public void Should_Be_Able_ToAssign_An_ProjectEmployee_To_A_()
+        public void Should_Be_Able_To_Assign_Project_To_An_Employee()
         {
             var employeeService = new EmployeeServices(_employeeRepoMock.Object);
             var employee = EmployeeData.Employees[0];
@@ -73,17 +73,37 @@ namespace ClientManagement.Tests.Core.EmployeeTest
 
         [TestMethod, TestCategory(UnitTest)]
         [ExpectedException(typeof(ProjectExistException))]
-        public void Should_Be_Able_TAssign_An_ProjectEmployee_To_A_()
+        public void Should_Not_Be_Able_To_Assign_A_Project_More_Than_Once_To_An_Employee()
         {
             var employeeService = new EmployeeServices(_employeeRepoMock.Object);
             var employee = EmployeeData.Employees[0];
-            var project = new ProjectEntity();
+
+            var project = new Project();
             project.Id = Guid.NewGuid();
             project.Status = ProjectStatus.Completed;
             project.Description = "Renovation of classroom blocks";
             project.Title = "Renovation of classromm blocks for uyo primary school";
+
             employeeService.AssignProjectToEmployee(employee, project);
             employeeService.AssignProjectToEmployee(employee, project);
+        }
+
+        [TestMethod, TestCategory(UnitTest)]
+        public void Should_Be_Able_To_Remove_Employee_From_Projects()
+        {
+            var employeeService = new EmployeeServices(_employeeRepoMock.Object);
+            var employee = EmployeeData.Employees[0];
+
+            var project = new Project();
+            project.Id = Guid.NewGuid();
+            project.Status = ProjectStatus.Completed;
+            project.Description = "Renovation of classroom blocks";
+            project.Title = "Renovation of classromm blocks for uyo primary school";
+
+            employeeService.AssignProjectToEmployee(employee, project);
+            employeeService.RemoveEmployeeFromProject(employee, project);
+
+            Assert.AreEqual(0, employee.NumberOfProjects());
         }
 
 

@@ -27,7 +27,7 @@ namespace ClientManagement.Tests
             employee.Id = Guid.NewGuid();
             employee.Firstname = "Emeka";
             employee.Lastname = "Onwuzulike";
-            employee.Gender = "Male";
+            employee.Gender = Gender.Male;
             Assert.IsInstanceOfType(employee.Id, typeof(Guid));
         }
 
@@ -39,7 +39,7 @@ namespace ClientManagement.Tests
             employee.Id = Guid.NewGuid();
             employee.Firstname = "Emeka";
             employee.Lastname = "Onwuzulike";
-            employee.Gender = "Male";
+            employee.Gender = Gender.Male;
             Assert.AreEqual(employee.Firstname, "Emeka");
         }
 
@@ -50,7 +50,7 @@ namespace ClientManagement.Tests
             employee.Id = Guid.NewGuid();
             employee.Firstname = "Emeka";
             employee.Lastname = "Onwuzulike";
-            employee.Gender = "Male";
+            employee.Gender = Gender.Male;
             Assert.AreEqual(employee.Lastname, "Onwuzulike");
         }
 
@@ -62,7 +62,7 @@ namespace ClientManagement.Tests
             employee.Id = Guid.NewGuid();
             employee.Firstname = "Emeka";
             employee.Lastname = "Onwuzulike";
-            employee.Gender = "Male";
+            employee.Gender = Gender.Male;
             employee.AssignProject(ProjectData.project);
 
             Assert.AreEqual(1,employee.NumberOfProjects());
@@ -77,8 +77,8 @@ namespace ClientManagement.Tests
             employee.Id = Guid.NewGuid();
             employee.Firstname = "Emeka";
             employee.Lastname = "Onwuzulike";
-            employee.Gender = "Male";
-            var project = new ProjectEntity();
+            employee.Gender = Gender.Male;
+            var project = new Project();
             project.Id = Guid.NewGuid();
             project.Status = ProjectStatus.Completed;
             project.Description = "Renovation of classroom blocks";
@@ -94,8 +94,8 @@ namespace ClientManagement.Tests
             employee.Id = Guid.NewGuid();
             employee.Firstname = "Emeka";
             employee.Lastname = "Onwuzulike";
-            employee.Gender = "Male";
-            var project = new ProjectEntity();
+            employee.Gender=Gender.Male;
+            var project = new Project();
             project.Id = Guid.NewGuid();
             project.Status = ProjectStatus.Completed;
             project.Description = "Renovation of classroom blocks";
@@ -115,14 +115,32 @@ namespace ClientManagement.Tests
             employee.Id = Guid.NewGuid();
             employee.Firstname = "Emeka";
             employee.Lastname = "Onwuzulike";
-            employee.Gender = "Male";
-            var project = new ProjectEntity();
+            employee.Gender = Gender.Male;
+            var project = new Project();
             project.Id = Guid.NewGuid();
             project.Status = ProjectStatus.Completed;
             project.Description = "Renovation of classroom blocks";
             project.Title = "Renovation of classromm blocks for uyo primary school";
             employee.RemoveProject(project);
      
+        }
+
+        [TestMethod, TestCategory(UnitTest)]
+        public void Should_Be_Able_To_Retrive_Projects_An_Employee_Is_Working_on()
+        {
+            var employee = new Employee();
+            employee.Id = Guid.NewGuid();
+            employee.Firstname = "Emeka";
+            employee.Lastname = "Onwuzulike";
+            employee.Gender = Gender.Male;
+            employee.AssignProject(ProjectData.project);
+            employee.AssignProject(ProjectData.project2);
+            var employeeProjects = employee.GetProjects();
+            Assert.IsInstanceOfType(employeeProjects, typeof(List<Project>));
+            //Assert.AreEqual(employeeProjects[1].Title, "Construction of hostel");
+
+
+
         }
 
     }
