@@ -9,7 +9,7 @@ using ClientManagement.Core.Repositories.FileSystem;
 
 namespace ClientManagement.Core.Services
 {
-    public class ClientServices
+    public class ClientServices : IClientServices
     {
         private IClientRepository _clientrepository;
         public ClientServices(IClientRepository clientrepository)
@@ -29,25 +29,11 @@ namespace ClientManagement.Core.Services
             return client;
         }
 
-        public Client ToClient(Client clientEntity)
-        {
-            var client = new Client();
-            client.Id = clientEntity.Id;
-            client.ClientName = clientEntity.ClientName;
-            client.Address = clientEntity.Address;
-            return client;
-        }
 
-        public void AddProjectToClient(Client client,Project project)
-        {
-            
-            client.AddProject(project);
-        }
-
-        public List<Project> GetAllClientProjects(Guid ClientId)
+        public ICollection<Project> GetAllClientProjects(Guid ClientId)
         {
             var client = GetClient(ClientId);
-            return client.GetProjects();
+            return client.Projects;
         }
 
 

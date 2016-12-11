@@ -24,7 +24,7 @@ namespace ClientManagement.Core.Repositories.FileSystem
             if (_projects != null)
                 return _projects;
 
-           var ProjectJson = default(string);
+            var ProjectJson = default(string);
             _readerWriterLock.EnterReadLock();
             try
             {

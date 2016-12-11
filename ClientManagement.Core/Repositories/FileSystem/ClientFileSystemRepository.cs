@@ -19,7 +19,7 @@ namespace ClientManagement.Core.Repositories.FileSystem
         private static ReaderWriterLockSlim _readerWriterLock = new ReaderWriterLockSlim();
         private List<Client> _clients;
 
-       
+
         public List<Client> GetAllClients()
         {
             if (_clients != null)
@@ -36,8 +36,8 @@ namespace ClientManagement.Core.Repositories.FileSystem
                 _readerWriterLock.ExitReadLock();
             }
 
-             _clients = DeserializeObject<List<Client>>(clientJson)
-                ?? new List<Client>();
+            _clients = DeserializeObject<List<Client>>(clientJson)
+               ?? new List<Client>();
             return _clients;
 
         }

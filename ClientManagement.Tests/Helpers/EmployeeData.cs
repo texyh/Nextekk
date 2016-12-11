@@ -25,17 +25,7 @@ namespace ClientManagement.Tests.Helpers
             }
         }
 
-        public static List<Employee> EmployeeEntities
-        {
-            get
-            {
-                return new List<Employee>
-                {
-                    new Employee { Id = User1Id, Firstname = "Emeka", Lastname = "Onwuzulike",Gender=Gender.Male},
-                    new Employee { Id = User2Id, Firstname = "Chinyere", Lastname = "Okoh",Gender=Gender.Female }
-                };
-            }
-        }
+     
 
         public static List<Employee> Employees
         {

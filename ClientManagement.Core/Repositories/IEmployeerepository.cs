@@ -10,5 +10,11 @@ namespace ClientManagement.Core.Repositories
         List<Employee> GetAllEmployees();
         Employee GetEmployee(Guid Id);
         void Update(Employee employee);
+        void AssignProject(Guid employeeId, Guid projectId);
+        Project GetProject(Guid Id);
+        Employee GetEmployeeWithProjects(Guid Id);
+
+
+
     }
 }

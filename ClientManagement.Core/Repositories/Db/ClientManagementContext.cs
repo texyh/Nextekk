@@ -5,19 +5,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using ClientManagement.Core.Models;
+using ClientManagement.Core.Repositories.Db.Mappings;
+
 namespace ClientManagement.Core.Repositories.Db
 {
-    public class ClientManagementContext:DbContext
+    public class ClientManagementContext : DbContext
     {
-        
+
         public ClientManagementContext()
-            :base("name=DefaultConnection")
+            : base("name=DefaultConnection")
         {
 
         }
 
-        public DbSet<Employee> Employee { get; set; }
-        public DbSet<Project> Project { get; set; }
-        public DbSet<Client> Client { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Client> Clients { get; set; }
+
+
+
+        protected override void OnModelCreating(DbModelBuilder builder)
+        {
+            builder.Configurations.Add(new EmployeeMap());
+        }
     }
+
+
 }

@@ -14,7 +14,7 @@ using ClientManagement.Core.Exceptions;
 
 namespace ClientManagement.Tests.Core.EmployeeTest
 {
-    
+
     [TestClass]
     public class EmployeeServiceTest
     {
@@ -24,18 +24,29 @@ namespace ClientManagement.Tests.Core.EmployeeTest
         public void BeforeEach()
         {
 
-            var employees = EmployeeData.EmployeeEntities;
+            var Employees = EmployeeData.Employees;
+            var Projects = ProjectData.Projects;
+
             _employeeRepoMock = new Mock<IEmployeeRepository>();
-            _employeeRepoMock.Setup(x => x.GetAllEmployees()).Returns(employees);
+            _employeeRepoMock.Setup(x => x.GetAllEmployees()).Returns(Employees);
+
             _employeeRepoMock
                 .Setup(x => x.GetEmployee(It.IsAny<Guid>()))
                 .Returns((Guid input) =>
                 {
-                    return employees.FirstOrDefault(y => y.Id == input);
+                    return Employees.FirstOrDefault(y => y.Id == input);
                 });
+
+            _employeeRepoMock
+                .Setup(x => x.GetProject(It.IsAny<Guid>()))
+                .Returns((Guid input) =>
+                {
+                    return Projects.FirstOrDefault(y => y.Id == input);
+                });
+
         }
 
-        [TestMethod,TestCategory(UnitTest)]
+        [TestMethod, TestCategory(UnitTest)]
         public void Should_Be_Able_To_Create_An_EmployeeService_Instance()
         {
             var employeeService = new EmployeeServices(_employeeRepoMock.Object);
@@ -48,7 +59,7 @@ namespace ClientManagement.Tests.Core.EmployeeTest
         {
             var employeeService = new EmployeeServices(_employeeRepoMock.Object);
             var employee = employeeService.GetEmployee(EmployeeData.User2Id);
-            Assert.AreEqual("Chinyere", employee.Firstname);
+            Assert.AreEqual("Lola", employee.Firstname);
             Assert.IsInstanceOfType(employee, typeof(Employee));
 
         }
@@ -62,52 +73,18 @@ namespace ClientManagement.Tests.Core.EmployeeTest
             Assert.IsInstanceOfType(employees, typeof(List<Employee>));
         }
 
-        /*
+
         [TestMethod, TestCategory(UnitTest)]
         public void Should_Be_Able_To_Assign_Project_To_An_Employee()
         {
             var employeeService = new EmployeeServices(_employeeRepoMock.Object);
-            var employee = EmployeeData.Employees[0];
-            employeeService.AssignProjectToEmployee(employee, ProjectData.project);
-            Assert.AreEqual(1,employee.NumberOfProjects());
+
+            employeeService.AssignProjectToEmployee(EmployeeData.User1Id, ProjectData.Project1Id);
+            Assert.AreEqual(0, EmployeeData.Employees[0].Projects.Count);
         }
 
-        [TestMethod, TestCategory(UnitTest)]
-        [ExpectedException(typeof(ProjectExistException))]
-        public void Should_Not_Be_Able_To_Assign_A_Project_More_Than_Once_To_An_Employee()
-        {
-            var employeeService = new EmployeeServices(_employeeRepoMock.Object);
-            var employee = EmployeeData.Employees[0];
 
-            var project = new Project();
-            project.Id = Guid.NewGuid();
-            project.Status = ProjectStatus.Completed;
-            project.Description = "Renovation of classroom blocks";
-            project.Title = "Renovation of classromm blocks for uyo primary school";
 
-            employeeService.AssignProjectToEmployee(employee, project);
-            employeeService.AssignProjectToEmployee(employee, project);
-        }
-
-        [TestMethod, TestCategory(UnitTest)]
-        public void Should_Be_Able_To_Remove_Employee_From_Projects()
-        {
-            var employeeService = new EmployeeServices(_employeeRepoMock.Object);
-            var employee = EmployeeData.Employees[0];
-
-            var project = new Project();
-            project.Id = Guid.NewGuid();
-            project.Status = ProjectStatus.Completed;
-            project.Description = "Renovation of classroom blocks";
-            project.Title = "Renovation of classromm blocks for uyo primary school";
-
-            employeeService.AssignProjectToEmployee(employee, project);
-            employeeService.RemoveEmployeeFromProject(employee, project);
-
-            Assert.AreEqual(0, employee.NumberOfProjects());
-        }
-
-    */
 
     }
 }

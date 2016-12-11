@@ -8,133 +8,111 @@ using System.Web;
 using System.Web.Mvc;
 using ClientManagement.Core.Models;
 using ClientManagement.Web.Models;
-using ClientManagement.Core.Services;
 
 namespace ClientManagement.Web.Controllers
 {
-    public class EmployeeController : Controller
+    public class ProjectsController : Controller
     {
-        private readonly IEmployeeServices _employeeService;
+        private ClientManagementWebContext232 db = new ClientManagementWebContext232();
 
-        public EmployeeController(IEmployeeServices employeeService)
-        {
-            _employeeService = employeeService;
-        }
-
-        // GET: Employee
+        // GET: Projects
         public ActionResult Index()
         {
-            var employees = _employeeService.GetAllEmployees();
-            return View(employees);
+            return View(db.Projects.ToList());
         }
 
-        // GET: Employee/Details/5
-        public ActionResult Details(Guid Id)
+        // GET: Projects/Details/5
+        public ActionResult Details(Guid? id)
         {
-            if (Id == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var employee = _employeeService.GetEmployee(Id);
-            if (employee == null)
+            Project project = db.Projects.Find(id);
+            if (project == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(project);
         }
 
-        // GET: Employee/Details/5
-        public ActionResult DetailsWithProjects(Guid Id)
-        {
-            if (Id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var employee = _employeeService.GetEmployeeWithProjects(Id);
-            if (employee == null)
-            {
-                return HttpNotFound();
-            }
-            return View(employee);
-        }
-
-        // GET: Employee/Create
+        // GET: Projects/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Employee/Create
+        // POST: Projects/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Lastname,Firstname,Gender,ApplicationUserId")] Employee employee)
+        public ActionResult Create([Bind(Include = "Id,Title,Description,Status,StartDate,EndDate,ClientId")] Project project)
         {
             if (ModelState.IsValid)
             {
-                employee.Id = Guid.NewGuid();
-                db.Employees.Add(employee);
+                project.Id = Guid.NewGuid();
+                db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(employee);
+            return View(project);
         }
 
-        // GET: Employee/Edit/5
+        // GET: Projects/Edit/5
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            Project project = db.Projects.Find(id);
+            if (project == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(project);
         }
 
-        // POST: Employee/Edit/5
+        // POST: Projects/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Lastname,Firstname,Gender,ApplicationUserId")] Employee employee)
+        public ActionResult Edit([Bind(Include = "Id,Title,Description,Status,StartDate,EndDate,ClientId")] Project project)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employee).State = EntityState.Modified;
+                db.Entry(project).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(employee);
+            return View(project);
         }
 
-        // GET: Employee/Delete/5
+        // GET: Projects/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            Project project = db.Projects.Find(id);
+            if (project == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(project);
         }
 
-        // POST: Employee/Delete/5
+        // POST: Projects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Employee employee = db.Employees.Find(id);
-            db.Employees.Remove(employee);
+            Project project = db.Projects.Find(id);
+            db.Projects.Remove(project);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -32,6 +32,14 @@ namespace ClientManagement.Core.Services
         }
 
 
+        public Employee GetEmployeeByAppId(string Id)
+        {
+            var employees = GetAllEmployees();
+            var employee = employees.FirstOrDefault(x => x.ApplicationUserId == Id);
+            return employee;
+        }
+
+
         public void Save(Employee employee)
         {
             var dbEmployee = _employeeRepository.GetEmployee(employee.Id);
@@ -42,24 +50,24 @@ namespace ClientManagement.Core.Services
                 _employeeRepository.Update(employee);
         }
 
-        /*
-        public void AssignProjectToEmployee(Employee employee,Project project)
+
+        public void AssignProjectToEmployee(Guid employeeId, Guid projectid)
         {
-           
-            employee.AssignProject(project);
+            _employeeRepository.AssignProject(employeeId, projectid);
+
         }
 
-        public void RemoveEmployeeFromProject(Employee employee,Project project)
-        {
-            employee.RemoveProject(project);
-        }
-        */
+        //public void RemoveEmployeeFromProject(Employee employee,Project project)
+        //{
+        //    employee.RemoveProject(project);
+        //}
 
-        public ICollection<Project> EmployeeProjects(Guid employeeId)
+
+        //Includes Navigation Properties
+        public Employee GetEmployeeWithProjects(Guid Id)
         {
-            var employee = GetEmployee(employeeId);
-            var employeeProjects = employee.GetProjects();
-            return employeeProjects;
+            var employee = _employeeRepository.GetEmployeeWithProjects(Id);
+            return employee;
         }
 
     }

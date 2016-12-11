@@ -1,6 +1,0 @@
-﻿CREATE TABLE [dbo].[Client]
-(
-	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
-    [ClientName] VARCHAR(50) NULL, 
-    [Address] VARCHAR(200) NULL
-)

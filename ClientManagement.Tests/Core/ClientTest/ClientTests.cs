@@ -24,7 +24,7 @@ namespace ClientManagement.Tests.Core.ClientTest
             client.Id = Guid.NewGuid();
             client.ClientName = "Ministry of Petroleum Resources";
             client.Address = "Plot 143 summer street kubwa";
-       
+
             Assert.IsInstanceOfType(client.Id, typeof(Guid));
         }
 
@@ -63,29 +63,12 @@ namespace ClientManagement.Tests.Core.ClientTest
             project.Status = ProjectStatus.Completed;
             project.Description = "Renovation of classroom blocks";
             project.Title = "Renovation of classromm blocks for uyo primary school";
-            client.AddProject(project);
-            Assert.AreEqual(1, client.NumberOfProjects());
+            client.Projects.Add(project);
+            Assert.AreEqual(1, client.Projects.Count);
         }
 
 
-        [TestMethod, TestCategory(UnitTest)]
-        [ExpectedException(typeof(ProjectExistException))]
-        public void Should_Not_Be_Able_To_Add_OneProjects_Twice_To_Client()
-        {
-
-            var client = new Client();
-            client.Id = Guid.NewGuid();
-            client.ClientName = "Ministry of Petroleum Resources";
-            client.Address = "Plot 143 summer street kubwa";
-            var project = new Project();
-            project.Id = Guid.NewGuid();
-            project.Status = ProjectStatus.Completed;
-            project.Description = "Renovation of classroom blocks";
-            project.Title = "Renovation of classromm blocks for uyo primary school";
-            client.AddProject(project);
-            client.AddProject(project);
-        
-        }
+   
 
         [TestMethod, TestCategory(UnitTest)]
         public void Should_Be_Able_To_Retrieve_All_Projects_Added_To_A_Client()
@@ -100,11 +83,13 @@ namespace ClientManagement.Tests.Core.ClientTest
 
             var project2 = ProjectData.project;
 
-            client.AddProject(project);
-            client.AddProject(project2);
+            client.Projects.Add(project);
+            client.Projects.Add(project);
 
-            Assert.AreEqual(2, client.NumberOfProjects());
-            Assert.IsInstanceOfType(client.GetProjects(), typeof(List<Project>));
+
+
+            Assert.AreEqual(2, client.Projects.Count);
+            Assert.IsInstanceOfType(client.Projects, typeof(List<Project>));
 
         }
     }

@@ -69,28 +69,10 @@ namespace ClientManagement.Tests.Core.ClientTest
             var clientService = new ClientServices(_clientRepoMock.Object);
             var client = ClientData.client;
             clientService.AddProjectToClient(client, ProjectData.project);
-            Assert.AreEqual(1, client.NumberOfProjects());
+            Assert.AreEqual(1, client.Projects.Count);
         }
 
-        [TestMethod, TestCategory(UnitTest)]
-        [ExpectedException(typeof(ProjectExistException))]
-        public void Should_Not_Be_Able_To_Add_A_Project_More_Than_Once_To_A_Client()
-        {
-            var clientService = new ClientServices(_clientRepoMock.Object);
-            var client = ClientData.client;
-
-            var project = new Project();
-            project.Id = Guid.NewGuid();
-            project.Status = ProjectStatus.Completed;
-            project.Description = "Renovation of classroom blocks";
-            project.Title = "Renovation of classromm blocks for uyo primary school";
-
-
-            clientService.AddProjectToClient(client, project);
-            clientService.AddProjectToClient(client, project);
-
-
-        }
+        
 
         [TestMethod, TestCategory(UnitTest)]
         public void Should_Be_Able_To_Retrieve_All_Projects_Added_To_A_Client()
@@ -108,11 +90,11 @@ namespace ClientManagement.Tests.Core.ClientTest
 
             var project2 = ProjectData.project;
 
-            clientService.AddProjectToClient(client,project);
-            clientService.AddProjectToClient(client,project2);
+            clientService.AddProjectToClient(client, project);
+            clientService.AddProjectToClient(client, project2);
 
-            Assert.AreEqual(2, client.NumberOfProjects());
-            Assert.IsInstanceOfType(client.GetProjects(), typeof(List<Project>));
+            Assert.AreEqual(2, client.Projects.Count);
+            Assert.IsInstanceOfType(client.Projects, typeof(List<Project>));
 
         }
 

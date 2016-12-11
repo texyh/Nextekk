@@ -9,17 +9,18 @@ using ClientManagement.Core.Repositories;
 
 namespace ClientManagement.Core.Services
 {
-    public class ProjectServices
+    public class ProjectServices : IProjectServices
     {
         private IProjectRepository _projectRepository;
-        public ProjectServices(IProjectRepository projectRepository) {
+        public ProjectServices(IProjectRepository projectRepository)
+        {
             _projectRepository = projectRepository;
         }
-        
+
         public List<Project> GetAllProjects()
         {
             var projects = _projectRepository.GetAllProjects();
-            return projects.Select(x => ToProject(x)).ToList();
+            return projects;
         }
 
         public Project GetProject(Guid Id)
@@ -29,27 +30,13 @@ namespace ClientManagement.Core.Services
             return Project;
         }
 
-        public Project ToProject(Project projectEntity)
+
+        public ICollection<Employee> ProjectEmployees(Guid projectId)
         {
-            var project = new Project();
-            project.Id = projectEntity.Id;
-            project.Description = projectEntity.Description;
-            project.Status = projectEntity.Status;
-
-            return project;
-
+            var project = GetProject(projectId);
+            var projectEmployees = project.Employees;
+            return projectEmployees;
         }
-
-        public void AddEmployeeToProject(Employee employee,Project project)
-        {
-            project.AddEmploye(employee);
-        }
-
-       /* public void AssignClient(Client client,Guid projectId)
-        {
-            var Project = GetProject(projectId);
-            Project.Client = client;
-        }*/
 
 
 

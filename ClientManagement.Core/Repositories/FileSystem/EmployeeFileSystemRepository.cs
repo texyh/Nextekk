@@ -16,13 +16,18 @@ namespace ClientManagement.Core.Repositories
     public class EmployeeFileSystemRepository : IEmployeeRepository
     {
         private readonly string File_Path = ConfigurationManager.AppSettings["EmployeeFilePath"];
+        private readonly string Project_File_Path = ConfigurationManager.AppSettings["ProjectFilePath"];
+
         private static ReaderWriterLockSlim _readerWriterLock = new ReaderWriterLockSlim();
         private List<Employee> _employees;
+        private List<Project> _projects;
+
+
 
         public List<Employee> GetAllEmployees()
         {
-            if (_employees!=null)
-               return _employees;
+            if (_employees != null)
+                return _employees;
 
             _readerWriterLock.EnterReadLock();
             var employeejson = default(string);
@@ -41,6 +46,37 @@ namespace ClientManagement.Core.Repositories
 
             return _employees;
 
+        }
+
+        public List<Project> GetAllProjects()
+        {
+            if (_projects != null)
+                return _projects;
+
+            _readerWriterLock.EnterReadLock();
+            var projectjson = default(string);
+
+            try
+            {
+                projectjson = File.ReadAllText(Project_File_Path);
+            }
+            finally
+            {
+                _readerWriterLock.ExitReadLock();
+            }
+
+            _projects = DeserializeObject<List<Project>>(projectjson)
+                ?? new List<Project>();
+
+            return _projects;
+
+        }
+
+        public Project GetProject(Guid Id)
+        {
+            var projects = GetAllProjects();
+            var project = projects.FirstOrDefault(x => x.Id == Id);
+            return project;
         }
 
         public Employee GetEmployee(Guid Id)
@@ -72,7 +108,7 @@ namespace ClientManagement.Core.Repositories
             PersistEmployees();
         }
 
-       
+
 
         public void PersistEmployees()
         {
@@ -91,6 +127,25 @@ namespace ClientManagement.Core.Repositories
             }
 
         }
+
+        public void AssignProject(Guid employeeId, Guid projectId)
+        {
+            var Projects = GetAllProjects();
+            var project = Projects.FirstOrDefault(x => x.Id == projectId);
+            var employee = GetEmployee(employeeId);
+
+            employee.Projects.Add(project);
+
+            PersistEmployees();
+
+        }
+
+        public Employee GetEmployeeWithProjects(Guid Id)
+        {
+            var employee = GetEmployee(Id);
+            return employee;
+        }
         
+
     }
 }

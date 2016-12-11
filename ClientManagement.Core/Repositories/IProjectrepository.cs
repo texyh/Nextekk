@@ -8,9 +8,9 @@ namespace ClientManagement.Core.Repositories
     public interface IProjectRepository
     {
         void Create(Project projectEntity);
-        void EditProject(Project projectEntity);
+        void UpdateProject(Project projectEntity);
         List<Project> GetAllProjects();
         Project GetProject(Guid Id);
-        void PersistProject();
+
     }
 }

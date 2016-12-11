@@ -21,32 +21,13 @@ namespace ClientManagement.Core.Models
         public ProjectStatus Status { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public Guid EmployeeId { get; set; }
-
         public Guid ClientId { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }
 
-        public void AddEmploye (Employee employeeEntity)
-        {
-            if (CantAddEmployee(employeeEntity))
-                throw new EmployeeExistException("Employee Already Added to Project");
 
-            Employees.Add(employeeEntity);
-        }
-
-        public int NumberOfEmployees()
-        {
-            return Employees.Count;
-        }
-
-        public bool CantAddEmployee(Employee employee)
-        {
-            return Employees.Contains(employee);
-
-        }
 
     }
 
-    
+
 }

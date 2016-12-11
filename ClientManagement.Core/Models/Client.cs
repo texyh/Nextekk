@@ -20,34 +20,6 @@ namespace ClientManagement.Core.Models
         public virtual ICollection<Project> Projects { get; set; }
 
 
-
-        public void AddProject(Project project)
-        {
-            var cantAddProject = CantAddProject(project);
-            if (cantAddProject)
-                throw new ProjectExistException();
-
-            Projects.Add(project);
-        }
-
-        public int NumberOfProjects()
-        {
-            return Projects.Count;
-        }
-
-        public bool CantAddProject(Project project)
-        {
-            return Projects.Contains(project);
-
-        }
-
-        public List<Project> GetProjects()
-        {
-            return Projects.ToList();
-        }
-
-
-
     }
 
     

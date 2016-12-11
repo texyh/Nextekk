@@ -11,6 +11,9 @@ namespace ClientManagement.Core.Repositories.FileSystem
         void EditClient(Client client);
         List<Client> GetAllClients();
         Client GetClient(Guid Id);
-        void PersistClient();
+        Client GetClientOnly(Guid Id);
+
+
+
     }
 }

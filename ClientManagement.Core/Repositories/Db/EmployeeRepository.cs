@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClientManagement.Core.Models;
+using System.Data.Entity;
 
 namespace ClientManagement.Core.Repositories.Db
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository, IDisposable
     {
         private readonly ClientManagementContext _context;
         private readonly bool _externalContext;
@@ -23,21 +24,35 @@ namespace ClientManagement.Core.Repositories.Db
             _externalContext = true;
         }
 
-        
+
         public void Create(Employee employee)
         {
-            _context.Employee.Add(employee);
+            employee.Id = Guid.NewGuid();
+            _context.Employees.Add(employee);
             _context.SaveChanges();
         }
 
         public List<Employee> GetAllEmployees()
         {
-            return _context.Employee.ToList();
+            return _context.Employees.ToList();
         }
 
         public Employee GetEmployee(Guid Id)
         {
-            return _context.Employee.Find(Id);
+            return _context.Employees.Find(Id);
+        }
+
+        //Includes Navigation Properties
+        public Employee GetEmployeeWithProjects(Guid Id)
+        {
+            var employee = _context.Employees.Include(e => e.Projects).FirstOrDefault(x => x.Id == Id);
+            return employee;
+        }
+
+        public Project GetProject(Guid Id)
+        {
+            return _context.Projects.Find(Id);
+
         }
 
 
@@ -47,7 +62,30 @@ namespace ClientManagement.Core.Repositories.Db
             dbEmployee.Lastname = employee.Lastname;
             dbEmployee.Firstname = employee.Firstname;
             dbEmployee.Gender = dbEmployee.Gender;
+            _context.SaveChanges();
 
+        }
+
+        public void AssignProject(Guid employeeId, Guid projectId)
+        {
+            var dbProject = GetProject(projectId);
+            var dbEmployee = GetEmployee(employeeId);
+
+            dbEmployee.Projects.Add(dbProject);
+            //_context.Entry(dbEmployee).State = System.Data.Entity.EntityState.Modified;
+            //_context.Entry(dbEmployee).State = System.Data.Entity.EntityState.Modified;
+            //_context.Projects.Attach(dbProject);
+            //_context.Employees.Add(dbEmployee);
+            //_context.Employees.Attach(dbEmployee);
+            //dbEmployee.Projects.Add(dbProject);
+
+            _context.SaveChanges();
+
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }

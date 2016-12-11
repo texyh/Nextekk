@@ -4,41 +4,74 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClientManagement.Core.Models;
+using System.Data.Entity;
+using ClientManagement.Core.Repositories.Db;
 
 namespace ClientManagement.Core.Repositories
 {
-    public class ProjectRepository : IProjectRepository
+    public class ProjectRepository : IProjectRepository, IDisposable
     {
-        public void Create(Project project)
+
+        private readonly ClientManagementContext _context;
+        private readonly bool _externalContext;
+
+        public ProjectRepository()
         {
-            throw new NotImplementedException();
+            _context = new ClientManagementContext();
         }
 
-        public void EditProject(Project project)
+        public ProjectRepository(ClientManagementContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+            _externalContext = true;
+        }
+
+
+
+
+
+        public void Create(Project project)
+        {
+            project.Id = Guid.NewGuid();
+            _context.Projects.Add(project);
+            _context.SaveChanges();
+        }
+
+        public void UpdateProject(Project project)
+        {
+            var dbProject = GetProjectOnly(project.Id);
+            dbProject.Description = project.Description;
+            dbProject.EndDate = project.EndDate;
+            dbProject.Title = project.Title;
+            dbProject.Status = project.Status;
+            dbProject.StartDate = project.StartDate;
+            _context.SaveChanges();
+
         }
 
         public List<Project> GetAllProjects()
         {
-            throw new NotImplementedException();
+            return _context.Projects.ToList();
         }
 
         public Project GetProject(Guid Id)
         {
-            //include  navigation properties
-            throw new NotImplementedException();
+            
+            var project = _context.Projects.Include(e => e.Employees).FirstOrDefault(x => x.Id == Id);
+            return project;
+
         }
 
-        public Project GetProjectOnly(Guid id)
+        public Project GetProjectOnly(Guid Id)
         {
-            //don't include navigation properties
-            throw new NotImplementedException();
+            return _context.Projects.Find(Id);
         }
 
-        public void PersistProject()
+        
+
+        public void Dispose()
         {
-            throw new NotImplementedException();
+            _context.Dispose();
         }
     }
 }

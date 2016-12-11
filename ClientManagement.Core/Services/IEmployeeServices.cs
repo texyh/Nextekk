@@ -6,9 +6,14 @@ namespace ClientManagement.Core.Services
 {
     public interface IEmployeeServices
     {
-        ICollection<Project> EmployeeProjects(Guid employeeId);
+        void AssignProjectToEmployee(Guid employeeID, Guid projectid);
         List<Employee> GetAllEmployees();
         Employee GetEmployee(Guid Id);
+        Employee GetEmployeeByAppId(string Id);
         void Save(Employee employee);
+        Employee GetEmployeeWithProjects(Guid Id);
+
+
+
     }
 }
