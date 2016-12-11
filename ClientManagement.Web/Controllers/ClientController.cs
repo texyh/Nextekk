@@ -8,27 +8,33 @@ using System.Web;
 using System.Web.Mvc;
 using ClientManagement.Core.Models;
 using ClientManagement.Web.Models;
+using ClientManagement.Core.Services;
 
 namespace ClientManagement.Web.Controllers
 {
-    public class ClientsController : Controller
+    public class ClientController : Controller
     {
-        private ClientManagementWebContext db = new ClientManagementWebContext();
-
+        private readonly IClientServices _clientService;
+       
+        public ClientController(IClientServices clientService)
+        {
+            _clientService = clientService;
+        }
         // GET: Clients
         public ActionResult Index()
         {
-            return View(db.Clients.ToList());
+            var clients = _clientService.GetAllClients();
+            return View(clients);
         }
 
         // GET: Clients/Details/5
-        public ActionResult Details(Guid? id)
+        public ActionResult Details(Guid Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
+            var client = _clientService.GetClient(Id);
             if (client == null)
             {
                 return HttpNotFound();
@@ -43,17 +49,15 @@ namespace ClientManagement.Web.Controllers
         }
 
         // POST: Clients/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,ClientName,Address")] Client client)
         {
             if (ModelState.IsValid)
             {
-                client.Id = Guid.NewGuid();
-                db.Clients.Add(client);
-                db.SaveChanges();
+
+                _clientService.Save(client);
                 return RedirectToAction("Index");
             }
 
@@ -61,13 +65,13 @@ namespace ClientManagement.Web.Controllers
         }
 
         // GET: Clients/Edit/5
-        public ActionResult Edit(Guid? id)
+        public ActionResult Edit(Guid Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
+            var client =_clientService.GetClient(Id);
             if (client == null)
             {
                 return HttpNotFound();
@@ -76,46 +80,21 @@ namespace ClientManagement.Web.Controllers
         }
 
         // POST: Clients/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,ClientName,Address")] Client client)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(client).State = EntityState.Modified;
-                db.SaveChanges();
+                _clientService.Save(client);
+          
                 return RedirectToAction("Index");
             }
             return View(client);
         }
 
-        // GET: Clients/Delete/5
-        public ActionResult Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Client client = db.Clients.Find(id);
-            if (client == null)
-            {
-                return HttpNotFound();
-            }
-            return View(client);
-        }
-
-        // POST: Clients/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
-        {
-            Client client = db.Clients.Find(id);
-            db.Clients.Remove(client);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        
 
         
     }

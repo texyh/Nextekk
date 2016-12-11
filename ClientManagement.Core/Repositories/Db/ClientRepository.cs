@@ -60,6 +60,16 @@ namespace ClientManagement.Core.Repositories.Db
 
         }
 
+        public void Update(Client client)
+        {
+            var dbClient = GetClientOnly(client.Id);
+            dbClient.ClientName = client.ClientName;
+            dbClient.Address = client.Address;
+            
+            _context.SaveChanges();
+
+        }
+
         public void Dispose()
         {
             _context.Dispose();

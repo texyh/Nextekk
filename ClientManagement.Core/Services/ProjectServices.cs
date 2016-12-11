@@ -25,11 +25,19 @@ namespace ClientManagement.Core.Services
 
         public Project GetProject(Guid Id)
         {
-            var Projects = GetAllProjects();
-            var Project = Projects.FirstOrDefault(p => p.Id == Id);
+            var Project = _projectRepository.GetProjectOnly(Id);
             return Project;
         }
 
+        public void Save(Project project)
+        {
+            var dbProject = _projectRepository.GetProjectOnly(project.Id);
+
+            if (dbProject == null)
+                _projectRepository.Create(project);
+            else
+                _projectRepository.UpdateProject(project);
+        }
 
         public ICollection<Employee> ProjectEmployees(Guid projectId)
         {

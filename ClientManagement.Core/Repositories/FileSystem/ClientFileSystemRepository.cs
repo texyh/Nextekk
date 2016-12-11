@@ -49,6 +49,13 @@ namespace ClientManagement.Core.Repositories.FileSystem
             return client;
         }
 
+        public Client GetClientOnly(Guid Id)
+        {
+            var clients = GetAllClients();
+            var client = clients.FirstOrDefault(x => x.Id == Id);
+            return client;
+        }
+
 
 
         public void Create(Client client)
@@ -57,6 +64,17 @@ namespace ClientManagement.Core.Repositories.FileSystem
             client.Id = Guid.NewGuid();
             clients.Add(client);
             PersistClient();
+        }
+
+        public void Update(Client client)
+        {
+            var Client = GetClient(client.Id);
+            if (Client == null)
+            {
+                throw new InvalidOperationException("IvalidEmployee");
+            }
+
+            //todo
         }
 
         public void EditClient(Client client)

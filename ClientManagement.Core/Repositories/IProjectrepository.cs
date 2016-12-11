@@ -11,6 +11,7 @@ namespace ClientManagement.Core.Repositories
         void UpdateProject(Project projectEntity);
         List<Project> GetAllProjects();
         Project GetProject(Guid Id);
-
+        Project GetProjectOnly(Guid Id);
+        
     }
 }

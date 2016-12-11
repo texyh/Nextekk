@@ -9,6 +9,9 @@ using System.Web.Mvc;
 using ClientManagement.Core.Models;
 using ClientManagement.Web.Models;
 using ClientManagement.Core.Services;
+using Microsoft.AspNet.Identity;
+
+
 
 namespace ClientManagement.Web.Controllers
 {
@@ -65,17 +68,15 @@ namespace ClientManagement.Web.Controllers
         }
 
         // POST: Employee/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Lastname,Firstname,Gender,ApplicationUserId")] Employee employee)
+        public ActionResult Create([Bind(Include = "Id,Lastname,Firstname,Gender")] Employee employee)
         {
             if (ModelState.IsValid)
             {
-                employee.Id = Guid.NewGuid();
-                db.Employees.Add(employee);
-                db.SaveChanges();
+                employee.ApplicationUserId = User.Identity.GetUserId();
+                _employeeService.Save(employee);
                 return RedirectToAction("Index");
             }
 
@@ -83,13 +84,13 @@ namespace ClientManagement.Web.Controllers
         }
 
         // GET: Employee/Edit/5
-        public ActionResult Edit(Guid? id)
+        public ActionResult Edit(Guid Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
+            var employee = _employeeService.GetEmployee(Id);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -98,54 +99,18 @@ namespace ClientManagement.Web.Controllers
         }
 
         // POST: Employee/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Lastname,Firstname,Gender,ApplicationUserId")] Employee employee)
+        public ActionResult Edit([Bind(Include = "Id,Lastname,Firstname,Gender")] Employee employee)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employee).State = EntityState.Modified;
-                db.SaveChanges();
+                _employeeService.Save(employee);
                 return RedirectToAction("Index");
             }
             return View(employee);
         }
 
-        // GET: Employee/Delete/5
-        public ActionResult Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
-            {
-                return HttpNotFound();
-            }
-            return View(employee);
-        }
-
-        // POST: Employee/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
-        {
-            Employee employee = db.Employees.Find(id);
-            db.Employees.Remove(employee);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        
     }
 }

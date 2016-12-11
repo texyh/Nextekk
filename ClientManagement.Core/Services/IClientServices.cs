@@ -9,5 +9,7 @@ namespace ClientManagement.Core.Services
         ICollection<Project> GetAllClientProjects(Guid ClientId);
         List<Client> GetAllClients();
         Client GetClient(Guid Id);
+        void Save(Client client);
+
     }
 }

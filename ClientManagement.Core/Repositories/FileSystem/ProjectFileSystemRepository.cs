@@ -83,5 +83,16 @@ namespace ClientManagement.Core.Repositories.FileSystem
                 _readerWriterLock.ExitWriteLock();
             }
         }
+
+        public void UpdateProject(Project projectEntity)
+        {
+            //todo
+        }
+
+        public Project GetProjectOnly(Guid Id)
+        {
+            var project = GetProject(Id);
+            return project;
+        }
     }
 }

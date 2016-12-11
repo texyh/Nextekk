@@ -12,6 +12,8 @@ namespace ClientManagement.Core.Repositories.FileSystem
         List<Client> GetAllClients();
         Client GetClient(Guid Id);
         Client GetClientOnly(Guid Id);
+        void Update(Client client);
+
 
 
 

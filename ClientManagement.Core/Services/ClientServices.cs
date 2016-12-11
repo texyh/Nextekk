@@ -11,24 +11,32 @@ namespace ClientManagement.Core.Services
 {
     public class ClientServices : IClientServices
     {
-        private IClientRepository _clientrepository;
-        public ClientServices(IClientRepository clientrepository)
+        private IClientRepository _clientRepository;
+        public ClientServices(IClientRepository clientRepository)
         {
-            _clientrepository = clientrepository;
+            _clientRepository = clientRepository;
         }
         public List<Client> GetAllClients()
         {
-            var Clients = _clientrepository.GetAllClients();
+            var Clients = _clientRepository.GetAllClients();
             return Clients;
         }
 
         public Client GetClient(Guid Id)
         {
-            var Clients = GetAllClients();
-            var client = Clients.FirstOrDefault(x => x.Id == Id);
+            var client = _clientRepository.GetClientOnly(Id);
             return client;
         }
 
+        public void Save(Client client)
+        {
+            var dbClient = _clientRepository.GetClient(client.Id);
+
+            if (dbClient == null)
+                _clientRepository.Create(client);
+            else
+                _clientRepository.Update(client);
+        }
 
         public ICollection<Project> GetAllClientProjects(Guid ClientId)
         {
