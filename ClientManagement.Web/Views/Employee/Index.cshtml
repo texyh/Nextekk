@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.Gender)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ApplicationUserId)
+            @Html.DisplayNameFor(model => model.Projects)
         </th>
         <th></th>
     </tr>
@@ -38,12 +38,15 @@
             @Html.DisplayFor(modelItem => item.Gender)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ApplicationUserId)
+            @Html.DisplayFor(modelItem => item.Projects.Count)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) 
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("AssignProject", "AssignProject", new { id=item.Id }) |
+            @Html.ActionLink("ViewProjects", "EmployeeProjects", new { id = item.Id }) |
+
+
         </td>
     </tr>
 }

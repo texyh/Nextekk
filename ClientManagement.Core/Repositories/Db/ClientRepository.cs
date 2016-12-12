@@ -26,19 +26,11 @@ namespace ClientManagement.Core.Repositories.Db
             _externalContext = true;
         }
 
-
-
-
         public void Create(Client client)
         {
             client.Id = Guid.NewGuid();
             _context.Clients.Add(client);
-        }
-
-
-        public void EditClient(Client client)
-        {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         public List<Client> GetAllClients()
@@ -63,7 +55,7 @@ namespace ClientManagement.Core.Repositories.Db
         public void Update(Client client)
         {
             var dbClient = GetClientOnly(client.Id);
-            dbClient.ClientName = client.ClientName;
+            dbClient.Name = client.Name;
             dbClient.Address = client.Address;
             
             _context.SaveChanges();

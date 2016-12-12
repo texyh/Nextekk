@@ -61,7 +61,7 @@ namespace ClientManagement.Core.Repositories.Db
             var dbEmployee = GetEmployee(employee.Id);
             dbEmployee.Lastname = employee.Lastname;
             dbEmployee.Firstname = employee.Firstname;
-            dbEmployee.Gender = dbEmployee.Gender;
+            dbEmployee.Gender = employee.Gender;
             _context.SaveChanges();
 
         }

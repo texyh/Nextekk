@@ -49,7 +49,7 @@ namespace ClientManagement.Tests.Core.ClientTest
         {
             var repo = new ClientFileSystemRepository();
             var client = new Client();
-            client.ClientName = "NNPC";
+            client.Name = "NNPC";
             client.Address = "Bethel plaza,enugu state";
             repo.Create(client);
         }
@@ -63,7 +63,7 @@ namespace ClientManagement.Tests.Core.ClientTest
             Assert.AreEqual(2, clients.Count);
             Assert.AreEqual(ClientData.client1Id, clients.First().Id);
             Assert.AreEqual(ClientData.client2Id, clients[1].Id);
-            Assert.AreEqual("Ministry of Petroluem Resources", clients.First().ClientName);
+            Assert.AreEqual("Ministry of Petroluem Resources", clients.First().Name);
         }
 
 

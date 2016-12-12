@@ -2,13 +2,12 @@
 using ClientManagement.Core.Models;
 using System.Collections.Generic;
 
-namespace ClientManagement.Core.Repositories.FileSystem
+namespace ClientManagement.Core.Repositories
 {
     public interface IClientRepository
     {
 
         void Create(Client client);
-        void EditClient(Client client);
         List<Client> GetAllClients();
         Client GetClient(Guid Id);
         Client GetClientOnly(Guid Id);

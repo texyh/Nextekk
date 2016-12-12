@@ -45,6 +45,7 @@ namespace ClientManagement.Core.Repositories
             dbProject.Title = project.Title;
             dbProject.Status = project.Status;
             dbProject.StartDate = project.StartDate;
+            dbProject.ClientName = project.ClientName;
             _context.SaveChanges();
 
         }

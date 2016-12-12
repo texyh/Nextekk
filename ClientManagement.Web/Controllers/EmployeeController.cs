@@ -10,8 +10,7 @@ using ClientManagement.Core.Models;
 using ClientManagement.Web.Models;
 using ClientManagement.Core.Services;
 using Microsoft.AspNet.Identity;
-
-
+using ClientManagement.Core.Repositories.Db;
 
 namespace ClientManagement.Web.Controllers
 {
@@ -82,6 +81,34 @@ namespace ClientManagement.Web.Controllers
 
             return View(employee);
         }
+
+        public ActionResult AssignProject(Guid Id)
+        {
+            ViewBag.employeeId = Id;
+            ClientManagementContext db = new ClientManagementContext();
+            ViewBag.Projects = db.Projects.ToList();
+            return View();
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AssignProject()
+        {
+            
+            return RedirectToAction("Index");
+
+        }
+
+        public ActionResult EmployeeProjects(Guid Id)
+        {
+            var employee = _employeeService.GetEmployee(Id);
+            ViewBag.Name = employee.Lastname + employee.Firstname;
+            var employeeProjects = employee.Projects.ToList();
+
+            return View(employeeProjects);
+        }
+
 
         // GET: Employee/Edit/5
         public ActionResult Edit(Guid Id)

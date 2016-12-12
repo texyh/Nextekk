@@ -37,7 +37,7 @@ namespace ClientManagement.Tests.Helpers
         {
             get
             {
-                return new Client() { Id = client3Id, ClientName = "Ministry of Petroluem Resources", Address = "plot 143 summer street kubwa abuja" };
+                return new Client() { Id = client3Id, Name = "Ministry of Petroluem Resources", Address = "plot 143 summer street kubwa abuja" };
 
 
             }
@@ -47,7 +47,7 @@ namespace ClientManagement.Tests.Helpers
         {
             get
             {
-                return new Client() { Id = client1Id, ClientName = "Ministry of Petroluem Resources", Address = "plot 143 summer street kubwa abuja" };
+                return new Client() { Id = client1Id, Name = "Ministry of Petroluem Resources", Address = "plot 143 summer street kubwa abuja" };
 
 
             }
@@ -58,8 +58,8 @@ namespace ClientManagement.Tests.Helpers
             {
                 return new List<Client>
                 {
-                    new Client { Id = client1Id, ClientName = "Ministry of Petroluem Resources", Address = "plot 143 summer street kubwa abuja" },
-                    new Client { Id = client2Id, ClientName = "NNPC", Address = "Maitama abuja"}
+                    new Client { Id = client1Id, Name = "Ministry of Petroluem Resources", Address = "plot 143 summer street kubwa abuja" },
+                    new Client { Id = client2Id, Name = "NNPC", Address = "Maitama abuja"}
                 };
             }
         }

@@ -43,6 +43,16 @@ namespace ClientManagement.Web.Controllers
             return View(project);
         }
 
+
+        public ActionResult ProjectEmployees(Guid Id)
+        {
+            var project = _projectServices.GetProject(Id);
+            var projectEmployees = project.Employees.ToList();
+            ViewBag.Name = project.Title;
+            return View(projectEmployees);
+        }
+
+
         // GET: Projects/Create
         public ActionResult Create()
         {
@@ -53,7 +63,7 @@ namespace ClientManagement.Web.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,Status,StartDate,EndDate,ClientId")] Project project)
+        public ActionResult Create([Bind(Include = "Id,Title,Description,Status,StartDate,EndDate,ClientName")] Project project)
         {
             if (ModelState.IsValid)
             {

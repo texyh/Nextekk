@@ -83,7 +83,7 @@ namespace ClientManagement.Core.Repositories.FileSystem
             if (client == null)
                 throw new InvalidOperationException("invalid client");
 
-            client.ClientName = client.ClientName;
+            client.Name = client.Name;
             client.Address = client.Address;
             PersistClient();
 

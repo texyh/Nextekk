@@ -49,7 +49,7 @@ namespace ClientManagement.Tests.Core.ClientTest
         {
             var clientService = new ClientServices(_clientRepoMock.Object);
             var client = clientService.GetClient(ClientData.client1Id);
-            Assert.AreEqual("Ministry of Petroluem Resources", client.ClientName);
+            Assert.AreEqual("Ministry of Petroluem Resources", client.Name);
             Assert.IsInstanceOfType(client, typeof(Client));
 
         }

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ClientManagement.Core.Models.Employee>
+
+@{
+    ViewBag.Title = "ProjectEmployees";
+}
+
+<h2>ProjectEmployees</h2>
+
+<p class="text-center">
+   Employees Assinged To @ViewBag.Name
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lastname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gender)
+        </td>
+        <td>
+           
+        </td>
+    </tr>
+}
+
+</table>
+<p>
+
+    @Html.ActionLink("Back to List", "Index")
+
+</p>

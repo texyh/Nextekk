@@ -4,6 +4,7 @@ using Microsoft.Practices.Unity.Configuration;
 using ClientManagement.Core.Services;
 using ClientManagement.Core.Repositories;
 using ClientManagement.Core.Repositories.Db;
+using ClientManagement.Core.Repositories.FileSystem;
 
 namespace ClientManagement.Web.App_Start
 {
@@ -41,7 +42,13 @@ namespace ClientManagement.Web.App_Start
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<IEmployeeServices, EmployeeServices>();
+            container.RegisterType<IClientServices, ClientServices>();
+            container.RegisterType<IProjectServices, ProjectServices>();
+
             container.RegisterType<IEmployeeRepository, EmployeeRepository>(new InjectionConstructor());
+            container.RegisterType<IClientRepository, ClientRepository>(new InjectionConstructor());
+            container.RegisterType<IProjectRepository, ProjectRepository>(new InjectionConstructor());
+
         }
     }
 }

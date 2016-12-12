@@ -30,12 +30,10 @@ namespace ClientManagement.Core.Services
 
         public void Save(Client client)
         {
-            var dbClient = _clientRepository.GetClient(client.Id);
-
-            if (dbClient == null)
+            if (client.Id == Guid.Empty)
                 _clientRepository.Create(client);
-            else
-                _clientRepository.Update(client);
+
+             _clientRepository.Update(client);
         }
 
         public ICollection<Project> GetAllClientProjects(Guid ClientId)

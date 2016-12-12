@@ -27,6 +27,20 @@ namespace ClientManagement.Web.Controllers
             return View(clients);
         }
 
+        [HttpPost]
+        public JsonResult Index(string Prefix)
+        {
+            //Note : you can bind same list from database  
+            var clients = _clientService.GetAllClients();
+            //Searching records from list using LINQ query  
+            var ClientName = (from client in clients
+                            where client.Name.StartsWith(Prefix)
+                            select new { client.Name });
+            return Json(ClientName, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         // GET: Clients/Details/5
         public ActionResult Details(Guid Id)
         {
@@ -42,6 +56,14 @@ namespace ClientManagement.Web.Controllers
             return View(client);
         }
 
+        public ActionResult ClientProjects(Guid Id)
+        {
+            var client = _clientService.GetClient(Id);
+            var clientProjects = client.Projects.ToList();
+            ViewBag.Name = client.Name;
+            return View(clientProjects);
+        }
+
         // GET: Clients/Create
         public ActionResult Create()
         {
@@ -52,11 +74,11 @@ namespace ClientManagement.Web.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ClientName,Address")] Client client)
+        public ActionResult Create([Bind(Include = "ClientName,Address")] Client client)
         {
             if (ModelState.IsValid)
             {
-
+                
                 _clientService.Save(client);
                 return RedirectToAction("Index");
             }

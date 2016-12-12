@@ -22,7 +22,7 @@ namespace ClientManagement.Tests.Core.ClientTest
         {
             var client = new Client();
             client.Id = Guid.NewGuid();
-            client.ClientName = "Ministry of Petroleum Resources";
+            client.Name = "Ministry of Petroleum Resources";
             client.Address = "Plot 143 summer street kubwa";
 
             Assert.IsInstanceOfType(client.Id, typeof(Guid));
@@ -34,9 +34,9 @@ namespace ClientManagement.Tests.Core.ClientTest
         {
             var client = new Client();
             client.Id = Guid.NewGuid();
-            client.ClientName = "Ministry of Petroleum Resources";
+            client.Name = "Ministry of Petroleum Resources";
             client.Address = "Plot 143 summer street kubwa";
-            Assert.AreEqual(client.ClientName, "Ministry of Petroleum Resources");
+            Assert.AreEqual(client.Name, "Ministry of Petroleum Resources");
         }
 
         [TestMethod, TestCategory(UnitTest)]
@@ -44,7 +44,7 @@ namespace ClientManagement.Tests.Core.ClientTest
         {
             var client = new Client();
             client.Id = Guid.NewGuid();
-            client.ClientName = "Ministry of Petroleum Resources";
+            client.Name = "Ministry of Petroleum Resources";
             client.Address = "Plot 143 summer street kubwa";
             Assert.AreEqual(client.Address, "Plot 143 summer street kubwa");
         }
@@ -56,7 +56,7 @@ namespace ClientManagement.Tests.Core.ClientTest
 
             var client = new Client();
             client.Id = Guid.NewGuid();
-            client.ClientName = "Ministry of Petroleum Resources";
+            client.Name = "Ministry of Petroleum Resources";
             client.Address = "Plot 143 summer street kubwa";
             var project = new Project();
             project.Id = Guid.NewGuid();
