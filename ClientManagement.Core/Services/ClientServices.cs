@@ -39,7 +39,7 @@ namespace ClientManagement.Core.Services
         public ICollection<Project> GetAllClientProjects(Guid ClientId)
         {
             var client = GetClient(ClientId);
-            return client.Projects;
+            return client.Projects.ToList();
         }
 
 

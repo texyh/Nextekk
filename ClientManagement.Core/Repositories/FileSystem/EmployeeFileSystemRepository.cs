@@ -145,7 +145,10 @@ namespace ClientManagement.Core.Repositories
             var employee = GetEmployee(Id);
             return employee;
         }
-        
 
+        public List<Project> GetProjects()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace ClientManagement.Tests.Core.ProjectTest
 {
 
     [TestClass]
-    public class ProjectRepositoryTest
+    public class ProjectFileSystemRepositoryTest
     {
         private readonly static string File_Path = ConfigurationManager.AppSettings["ProjectFilePath"];
 

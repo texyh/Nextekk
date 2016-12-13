@@ -26,13 +26,19 @@ namespace ClientManagement.Core.Repositories
             _externalContext = true;
         }
 
-
+        public Guid GetClientId(string name)
+        {
+            var client = _context.Clients.FirstOrDefault(x => x.Name == name);
+            return client.Id;
+        }
 
 
 
         public void Create(Project project)
         {
+            var ClientId = GetClientId(project.ClientName);
             project.Id = Guid.NewGuid();
+            project.ClientId = ClientId;
             _context.Projects.Add(project);
             _context.SaveChanges();
         }

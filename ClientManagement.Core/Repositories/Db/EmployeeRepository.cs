@@ -25,12 +25,7 @@ namespace ClientManagement.Core.Repositories.Db
         }
 
 
-        public void Create(Employee employee)
-        {
-            employee.Id = Guid.NewGuid();
-            _context.Employees.Add(employee);
-            _context.SaveChanges();
-        }
+        
 
         public List<Employee> GetAllEmployees()
         {
@@ -53,6 +48,18 @@ namespace ClientManagement.Core.Repositories.Db
         {
             return _context.Projects.Find(Id);
 
+        }
+
+        public List<Project> GetProjects()
+        {
+            return _context.Projects.ToList();
+        }
+
+        public void Create(Employee employee)
+        {
+            employee.Id = Guid.NewGuid();
+            _context.Employees.Add(employee);
+            _context.SaveChanges();
         }
 
 

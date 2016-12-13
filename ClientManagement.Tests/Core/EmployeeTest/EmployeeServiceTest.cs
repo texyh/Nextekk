@@ -74,14 +74,14 @@ namespace ClientManagement.Tests.Core.EmployeeTest
         }
 
 
-        [TestMethod, TestCategory(UnitTest)]
-        public void Should_Be_Able_To_Assign_Project_To_An_Employee()
-        {
-            var employeeService = new EmployeeServices(_employeeRepoMock.Object);
+        //[TestMethod, TestCategory(UnitTest)]
+        //public void Should_Be_Able_To_Assign_Project_To_An_Employee()
+        //{
+        //    var employeeService = new EmployeeServices(_employeeRepoMock.Object);
 
-            employeeService.AssignProjectToEmployee(EmployeeData.User1Id, ProjectData.Project1Id);
-            Assert.AreEqual(0, EmployeeData.Employees[0].Projects.Count);
-        }
+        //    employeeService.AssignProjectToEmployee(EmployeeData.User1Id, ProjectData.Project1Id);
+        //    Assert.AreEqual(0, EmployeeData.Employees[0].Projects.Count);
+        //}
 
 
 

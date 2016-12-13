@@ -22,7 +22,7 @@ namespace ClientManagement.Core.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string ClientName { get; set; }
-        public Guid  ClientId { }
+        public Guid  ClientId { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }
 

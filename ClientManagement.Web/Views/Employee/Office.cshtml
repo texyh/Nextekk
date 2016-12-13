@@ -1,0 +1,45 @@
+﻿@model ClientManagement.Core.Models.Employee
+
+@{
+    ViewBag.Title = "Office";
+}
+
+<h2>Office</h2>
+
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Lastname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lastname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Firstname)
+        </dd>
+
+        <dt>
+            Projects
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Projects.Count)
+
+
+        </dd>
+
+        
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    
+</p>

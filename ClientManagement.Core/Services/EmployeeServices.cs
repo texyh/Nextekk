@@ -51,9 +51,11 @@ namespace ClientManagement.Core.Services
         }
 
 
-        public void AssignProjectToEmployee(Guid employeeId, Guid projectid)
+        public void AssignProjectToEmployee(EmployeeProject employeeProject)
         {
-            _employeeRepository.AssignProject(employeeId, projectid);
+            var EmployeeId = employeeProject.EmployeeId;
+            var ProjectId = employeeProject.ProjectId;
+            _employeeRepository.AssignProject(EmployeeId,ProjectId);
 
         }
 
@@ -70,5 +72,12 @@ namespace ClientManagement.Core.Services
             return employee;
         }
 
+        public List<Project> GetProjects()
+        {
+            var Projects = _employeeRepository.GetProjects();
+            return Projects;
+
+         
+        }
     }
 }

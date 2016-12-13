@@ -63,40 +63,40 @@ namespace ClientManagement.Tests.Core.ClientTest
             Assert.AreEqual(2, clients.Count);
         }
 
-        [TestMethod, TestCategory(UnitTest)]
-        public void Should_Be_Able_To_Add_Project_To_A_Client()
-        {
-            var clientService = new ClientServices(_clientRepoMock.Object);
-            var client = ClientData.client;
-            clientService.AddProjectToClient(client, ProjectData.project);
-            Assert.AreEqual(1, client.Projects.Count);
-        }
+        //[TestMethod, TestCategory(UnitTest)]
+        //public void Should_Be_Able_To_Add_Project_To_A_Client()
+        //{
+        //    var clientService = new ClientServices(_clientRepoMock.Object);
+        //    var client = ClientData.client;
+        //    clientService.AddProjectToClient(client, ProjectData.project);
+        //    Assert.AreEqual(1, client.Projects.Count);
+        //}
 
         
 
-        [TestMethod, TestCategory(UnitTest)]
-        public void Should_Be_Able_To_Retrieve_All_Projects_Added_To_A_Client()
-        {
+        //[TestMethod, TestCategory(UnitTest)]
+        //public void Should_Be_Able_To_Retrieve_All_Projects_Added_To_A_Client()
+        //{
 
 
-            var clientService = new ClientServices(_clientRepoMock.Object);
-            var client = ClientData.client;
+        //    var clientService = new ClientServices(_clientRepoMock.Object);
+        //    var client = ClientData.client;
 
-            var project = new Project();
-            project.Id = Guid.NewGuid();
-            project.Status = ProjectStatus.Completed;
-            project.Description = "Renovation of classroom blocks";
-            project.Title = "Renovation of classromm blocks for uyo primary school";
+        //    var project = new Project();
+        //    project.Id = Guid.NewGuid();
+        //    project.Status = ProjectStatus.Completed;
+        //    project.Description = "Renovation of classroom blocks";
+        //    project.Title = "Renovation of classromm blocks for uyo primary school";
 
-            var project2 = ProjectData.project;
+        //    var project2 = ProjectData.project;
 
-            clientService.AddProjectToClient(client, project);
-            clientService.AddProjectToClient(client, project2);
+        //    clientService.AddProjectToClient(client, project);
+        //    clientService.AddProjectToClient(client, project2);
 
-            Assert.AreEqual(2, client.Projects.Count);
-            Assert.IsInstanceOfType(client.Projects, typeof(List<Project>));
+        //    Assert.AreEqual(2, client.Projects.Count);
+        //    Assert.IsInstanceOfType(client.Projects, typeof(List<Project>));
 
-        }
+        //}
 
 
 

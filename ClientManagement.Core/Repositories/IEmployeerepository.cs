@@ -13,8 +13,6 @@ namespace ClientManagement.Core.Repositories
         void AssignProject(Guid employeeId, Guid projectId);
         Project GetProject(Guid Id);
         Employee GetEmployeeWithProjects(Guid Id);
-
-
-
+        List<Project> GetProjects();
     }
 }

@@ -27,14 +27,15 @@ namespace ClientManagement.Web.Controllers
             return View(clients);
         }
 
+        //Used for Autocomplete By The A Project Action
         [HttpPost]
         public JsonResult Index(string Prefix)
         {
-            //Note : you can bind same list from database  
+            
             var clients = _clientService.GetAllClients();
-            //Searching records from list using LINQ query  
+             
             var ClientName = (from client in clients
-                            where client.Name.StartsWith(Prefix)
+                            where client.Name.Contains(Prefix)
                             select new { client.Name });
             return Json(ClientName, JsonRequestBehavior.AllowGet);
         }
@@ -56,13 +57,14 @@ namespace ClientManagement.Web.Controllers
             return View(client);
         }
 
+
         public ActionResult ClientProjects(Guid Id)
         {
-            var client = _clientService.GetClient(Id);
-            var clientProjects = client.Projects.ToList();
-            ViewBag.Name = client.Name;
-            return View(clientProjects);
+            //ViewBag.Name = client.Name;
+            var ClientProjects = _clientService.GetAllClientProjects(Id);
+            return View(ClientProjects);
         }
+
 
         // GET: Clients/Create
         public ActionResult Create()
@@ -74,7 +76,7 @@ namespace ClientManagement.Web.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClientName,Address")] Client client)
+        public ActionResult Create([Bind(Include = "Name,Address")] Client client)
         {
             if (ModelState.IsValid)
             {

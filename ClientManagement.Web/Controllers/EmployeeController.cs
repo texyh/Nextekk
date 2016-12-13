@@ -1,4 +1,9 @@
-﻿using System;
+﻿using ClientManagement.Core.Models;
+using ClientManagement.Core.Repositories.Db;
+using ClientManagement.Core.Services;
+using ClientManagement.Web.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,11 +11,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ClientManagement.Core.Models;
-using ClientManagement.Web.Models;
-using ClientManagement.Core.Services;
-using Microsoft.AspNet.Identity;
-using ClientManagement.Core.Repositories.Db;
 
 namespace ClientManagement.Web.Controllers
 {
@@ -23,12 +23,24 @@ namespace ClientManagement.Web.Controllers
             _employeeService = employeeService;
         }
 
+        [Authorize(Roles = "Manager")]
         // GET: Employee
         public ActionResult Index()
         {
             var employees = _employeeService.GetAllEmployees();
             return View(employees);
         }
+
+        public ActionResult Office()
+        {
+            var UserId = User.Identity.GetUserId();
+            var employee = _employeeService.GetEmployeeByAppId(UserId);
+            if (employee == null)
+                return RedirectToAction("Create");
+            return View(employee);
+        }
+
+        [Authorize(Roles = "Manager")]
 
         // GET: Employee/Details/5
         public ActionResult Details(Guid Id)
@@ -76,7 +88,7 @@ namespace ClientManagement.Web.Controllers
             {
                 employee.ApplicationUserId = User.Identity.GetUserId();
                 _employeeService.Save(employee);
-                return RedirectToAction("Index");
+                return RedirectToAction("Office");
             }
 
             return View(employee);
@@ -85,17 +97,17 @@ namespace ClientManagement.Web.Controllers
         public ActionResult AssignProject(Guid Id)
         {
             ViewBag.employeeId = Id;
-            ClientManagementContext db = new ClientManagementContext();
-            ViewBag.Projects = db.Projects.ToList();
-            return View();
+            var Projects = _employeeService.GetProjects();
+            return View(Projects);
 
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AssignProject()
+        public ActionResult AssignProject(EmployeeProject employeeProject)
         {
-            
+           // _employeeService.AssignProjectToEmployee(employeeProject);
             return RedirectToAction("Index");
 
         }

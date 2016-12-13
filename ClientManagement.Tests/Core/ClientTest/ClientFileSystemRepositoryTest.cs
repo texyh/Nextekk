@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 namespace ClientManagement.Tests.Core.ClientTest
 {
     [TestClass]
-    public class ClientRepositoryTest
+    public class ClientFileSystemRepositoryTest
     {
         private readonly static string File_Path = ConfigurationManager.AppSettings["ClientFilePath"];
 

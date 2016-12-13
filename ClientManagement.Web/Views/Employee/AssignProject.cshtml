@@ -1,4 +1,6 @@
-﻿@model ClientManagement.Core.Models.Project
+﻿
+@model IEnumerable<ClientManagement.Core.Models.Project>
+
 
 
 @{
@@ -18,17 +20,19 @@
             <label class="control-label col-md-2">Project Name</label>
 
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.Title, new SelectList(ViewBag.Projects, "Id", "Description"), "select project", new { @class = "form-control" })
+                <select class="form-control">
+                    <option>Select A Project</option>
+                    @foreach (var project in Model)
+                    {
+                        <option value="@project.Id">@project.Title</option>
+                    }
+
+                </select>
             </div>
         </div>
 
 
-        <div class="form-group">
-            <label class="control-label col-md-2">EmployeeId</label>
-            <div class="col-md-10">
-                @Html.TextBox("Employee", (Guid)ViewBag.employeeId, new { disabled = "disabled", @class = "form-control" })
-            </div>
-        </div>
+        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

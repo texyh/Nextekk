@@ -79,7 +79,7 @@ namespace ClientManagement.Web.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index", "Employee");
+                    return RedirectToAction("Office", "Employee");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

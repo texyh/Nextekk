@@ -42,9 +42,11 @@ namespace ClientManagement.Core.Services
         public ICollection<Employee> ProjectEmployees(Guid projectId)
         {
             var project = GetProject(projectId);
-            var projectEmployees = project.Employees;
+            var projectEmployees = project.Employees.ToList();
             return projectEmployees;
         }
+
+
 
 
 
