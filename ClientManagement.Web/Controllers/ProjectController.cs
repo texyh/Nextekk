@@ -12,6 +12,7 @@ using ClientManagement.Core.Services;
 
 namespace ClientManagement.Web.Controllers
 {
+    [Authorize(Roles = "Manager")]
     public class ProjectController : Controller
     {
         private readonly IProjectServices _projectServices;

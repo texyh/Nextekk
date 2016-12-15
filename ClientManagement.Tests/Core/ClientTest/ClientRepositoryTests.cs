@@ -53,5 +53,27 @@ namespace ClientManagement.Tests.Core.ClientTest
                 Assert.AreEqual(2, clients.Count);
             }
         }
+
+
+        [TestMethod, TestCategory(IntegrationTest)]
+        public void Should_Be_Able_To_Update_A_Client()
+        {
+            using (var context = new ClientManagementContext())
+            using (var repo = new ClientRepository(context))
+            using (var txn = context.Database.BeginTransaction())
+            {
+                var client = ClientData.client;
+
+
+                repo.Create(client);
+                client.Address = "Bethel Plaza";
+
+                var dbClient = context.Set<Client>().FirstOrDefault(x => x.Name == "Ministry of Petroluem Resources");
+
+                txn.Rollback();
+
+                Assert.AreEqual("Bethel Plaza", dbClient.Address);
+            }
+        }
     }
 }

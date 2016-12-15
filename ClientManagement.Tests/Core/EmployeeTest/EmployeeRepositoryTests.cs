@@ -26,7 +26,7 @@ namespace ClientManagement.Tests.Core.EmployeeTest
 
                     repo.Create(employee);
 
-                var dbEmployee = context.Set<Employee>().FirstOrDefault(x => x.Firstname == "James");
+                    var dbEmployee = context.Set<Employee>().FirstOrDefault(x => x.Firstname == "James");
         
                     txn.Rollback();
 
@@ -41,14 +41,16 @@ namespace ClientManagement.Tests.Core.EmployeeTest
             using (var repo = new EmployeeRepository(context))
             using (var txn = context.Database.BeginTransaction())
             {
-                context.Set<Employee>().Add(EmployeeData.Employees[0]);
+                context.Set<Employee>().Add(EmployeeData.Employees[1]);
                 context.SaveChanges();
             
                 var employees = repo.GetAllEmployees();
 
                 txn.Rollback();
 
-                Assert.AreEqual(1, employees.Count);
+                // Have one Employee already in the database
+                // so the number increases by one.
+                Assert.AreEqual(2, employees.Count);
             }
         }
 
@@ -77,6 +79,27 @@ namespace ClientManagement.Tests.Core.EmployeeTest
         }
 
 
+        [TestMethod, TestCategory(IntegrationTest)]
+        public void Should_Be_Able_To_Update_An_Employee()
+        {
+            using (var context = new ClientManagementContext())
+            using (var repo = new EmployeeRepository(context))
+            using (var txn = context.Database.BeginTransaction())
+            {
+                var employee = EmployeeData.Employees[0];
+
+
+                repo.Create(employee);
+
+                employee.Lastname = "Emeka";
+                repo.Update(employee);
+                var dbEmployee = context.Set<Employee>().FirstOrDefault(x => x.Firstname == "James");
+
+                txn.Rollback();
+
+                Assert.AreEqual("Emeka", dbEmployee.Lastname);
+            }
+        }
 
 
     }

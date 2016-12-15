@@ -28,7 +28,7 @@ namespace ClientManagement.Tests.Core.ClientTest
             _clientRepoMock = new Mock<IClientRepository>();
             _clientRepoMock.Setup(x => x.GetAllClients()).Returns(clients);
             _clientRepoMock
-                 .Setup(x => x.GetClient(It.IsAny<Guid>()))
+                 .Setup(x => x.GetClientOnly(It.IsAny<Guid>()))
                 .Returns((Guid input) =>
                 {
                     return clients.FirstOrDefault(y => y.Id == input);
@@ -53,6 +53,7 @@ namespace ClientManagement.Tests.Core.ClientTest
             Assert.IsInstanceOfType(client, typeof(Client));
 
         }
+
 
         [TestMethod, TestCategory(UnitTest)]
         public void Should_Be_Able_To_Retrieve_An_All_Clients()

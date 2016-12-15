@@ -45,7 +45,7 @@ namespace ClientManagement.Tests.Helpers
             {
 
 
-                return new Employee { Id = User1Id, Firstname = "James", Lastname = "Don", Gender = Gender.Male };
+                return new Employee { Id = User1Id, Firstname = "James", Lastname = "Don", Gender = Gender.Male, ApplicationUserId = "oo221934" };
                
             }
         }

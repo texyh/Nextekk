@@ -57,8 +57,8 @@ namespace ClientManagement.Tests.Helpers
             {
                 return new List<Project>
                 {
-                    new Project { Id = Project3Id, Title = "Rehabilation of class room", Description = "Rehabilitation of uyo high school",Status=ProjectStatus.InProgress},
-                    new Project { Id = Project4Id, Title = "Design of an Ecommerce store", Description = "Design of Ecommerce store for students",Status=ProjectStatus.Completed}
+                    new Project { Id = Project3Id, Title = "Rehabilation of class room", Description = "Rehabilitation of uyo high school",Status=ProjectStatus.InProgress,StartDate=DateTime.Parse("1/2/2016"),EndDate=DateTime.Parse("1/2/2017")},
+                    new Project { Id = Project1Id, Title = "Design of an Ecommerce store", Description = "Design of Ecommerce store for students",Status=ProjectStatus.Completed,StartDate=DateTime.Parse("1/2/2016"),EndDate=DateTime.Parse("1/2/2017")}
                 };
             }
         }
@@ -68,7 +68,7 @@ namespace ClientManagement.Tests.Helpers
         {
             get
             {
-                return new Project() { Id = Project1Id, Title = "Rehabilation of class room", Description = "Rehabilitation of uyo high school", Status = ProjectStatus.InProgress };
+                return new Project() { Id = Project1Id, Title = "Rehabilation of class room", Description = "Rehabilitation of uyo high school", Status = ProjectStatus.InProgress, StartDate = DateTime.Parse("1/2/2016"), EndDate = DateTime.Parse("1/2/2017") };
                 
             }
         }

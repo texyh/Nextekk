@@ -43,6 +43,7 @@ namespace ClientManagement.Tests.Core.EmployeeTest
                 {
                     return Projects.FirstOrDefault(y => y.Id == input);
                 });
+            
 
         }
 
@@ -82,9 +83,6 @@ namespace ClientManagement.Tests.Core.EmployeeTest
         //    employeeService.AssignProjectToEmployee(EmployeeData.User1Id, ProjectData.Project1Id);
         //    Assert.AreEqual(0, EmployeeData.Employees[0].Projects.Count);
         //}
-
-
-
-
+        
     }
 }

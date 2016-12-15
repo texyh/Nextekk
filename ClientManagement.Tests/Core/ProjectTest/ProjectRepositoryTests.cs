@@ -45,8 +45,10 @@ namespace ClientManagement.Tests.Core.ProjectTest
             using (var repo = new ProjectRepository(context))
             using (var txn = context.Database.BeginTransaction())
             {
-                context.Set<Project>().Add(ProjectData.Projects[1]);
-                context.SaveChanges();
+                var project = ProjectData.Projects[1];
+                project.ClientName = "Emeka EnterPrise";
+
+                repo.Create(project);
 
                 var projects = repo.GetAllProjects();
 
@@ -57,5 +59,33 @@ namespace ClientManagement.Tests.Core.ProjectTest
                 Assert.AreEqual(2, projects.Count);
             }
         }
+
+
+        [TestMethod, TestCategory(IntegrationTest)]
+        public void Should_Be_Able_To_Update_A_Project()
+        {
+            using (var context = new ClientManagementContext())
+            using (var repo = new ProjectRepository(context))
+            using (var txn = context.Database.BeginTransaction())
+            {
+                var project = ProjectData.Projects[1];
+
+                //Since the ClientId is a foriegn key 
+                //The name supplied will be usesd to get the client id
+                project.ClientName = "Emeka EnterPrise";
+
+                repo.Create(project);
+
+                project.Description = "The this is an update description";
+                repo.UpdateProject(project);
+
+                var dbProject = context.Set<Project>().FirstOrDefault(x => x.Title == "Design of an Ecommerce store");
+
+                txn.Rollback();
+
+                Assert.AreEqual("The this is an update description", dbProject.Description);
+            }
+        }
+
     }
 }

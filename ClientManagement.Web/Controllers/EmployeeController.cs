@@ -12,8 +12,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace ClientManagement.Web.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeServices _employeeService;
@@ -72,6 +74,8 @@ namespace ClientManagement.Web.Controllers
             return View(employee);
         }
 
+
+
         // GET: Employee/Create
         public ActionResult Create()
         {
@@ -94,6 +98,9 @@ namespace ClientManagement.Web.Controllers
             return View(employee);
         }
 
+
+
+        [Authorize(Roles = "Manager")]
         public ActionResult AssignProject(Guid Id)
         {
             ViewBag.employeeId = Id;
@@ -107,7 +114,7 @@ namespace ClientManagement.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AssignProject(EmployeeProject employeeProject)
         {
-           // _employeeService.AssignProjectToEmployee(employeeProject);
+            _employeeService.AssignProjectToEmployee(employeeProject);
             return RedirectToAction("Index");
 
         }

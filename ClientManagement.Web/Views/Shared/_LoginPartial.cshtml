@@ -6,7 +6,7 @@
         @Html.AntiForgeryToken()
         if (User.IsInRole("Manager")) { 
             <ul class="nav navbar-nav navbar-left">
-                <li>@Html.ActionLink("MyPage", "Office", "Employee")</li>
+                <li>@Html.ActionLink("PersonalOffice", "Office", "Employee")</li>
                 <li>@Html.ActionLink("Home", "Index", "Employee")</li>
                 <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
                 <li>@Html.ActionLink("Projects", "Index", "Project")</li>

@@ -30,7 +30,7 @@ namespace ClientManagement.Tests.Core.ProjectTest
             _projectRepoMock = new Mock<IProjectRepository>();
             _projectRepoMock.Setup(x => x.GetAllProjects()).Returns(projects);
             _projectRepoMock
-                 .Setup(x => x.GetProject(It.IsAny<Guid>()))
+                 .Setup(x => x.GetProjectOnly(It.IsAny<Guid>()))
                 .Returns((Guid input) =>
                 {
                     return projects.FirstOrDefault(y => y.Id == input);
@@ -51,8 +51,8 @@ namespace ClientManagement.Tests.Core.ProjectTest
             var projectService = new ProjectServices(_projectRepoMock.Object);
             var project = projectService.GetProject(ProjectData.Project1Id);
             
-            //Assert.IsInstanceOfType(project.Status, typeof(ProjectStatus));
-            //Assert.AreEqual("Rehabilitation of uyo high school", project.Description);
+            Assert.IsInstanceOfType(project.Status, typeof(ProjectStatus));
+            Assert.AreEqual("Design of Ecommerce store for students", project.Description);
             Assert.IsInstanceOfType(project, typeof(Project));
 
         }

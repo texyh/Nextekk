@@ -39,6 +39,8 @@ namespace ClientManagement.Core.Repositories
             var ClientId = GetClientId(project.ClientName);
             project.Id = Guid.NewGuid();
             project.ClientId = ClientId;
+            project.EndDate = project.EndDate.Date;
+            project.StartDate = project.StartDate.Date;
             _context.Projects.Add(project);
             _context.SaveChanges();
         }

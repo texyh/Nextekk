@@ -4,11 +4,9 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2 class="text-center">List Of All Company Staff</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -41,10 +39,11 @@
             @Html.DisplayFor(modelItem => item.Projects.Count)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) 
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("AssignProject", "AssignProject", new { id=item.Id }) |
-            @Html.ActionLink("ViewProjects", "EmployeeProjects", new { id = item.Id }) |
+            <a href="@Url.Action("Details", "Employee", new {id=item.Id})" class="btn btn-primary btn-xs">Details</a>
+            <a href="@Url.Action("AssignProject", "Employee", new {id=item.Id})" class="btn btn-success btn-xs">AssignProject</a>
+            <a href="@Url.Action("EmployeeProjects", "Employee", new {id=item.Id})" class="btn btn-info btn-xs">ViewProjects</a>
+            <a href="@Url.Action("ReAssignProject", "Employee", new {id=item.Id})" class="btn btn-danger btn-xs">ReAssignProject</a>
+
         </td>
     </tr>
 }

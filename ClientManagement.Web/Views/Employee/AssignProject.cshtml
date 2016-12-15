@@ -20,7 +20,7 @@
             <label class="control-label col-md-2">Project Name</label>
 
             <div class="col-md-10">
-                <select class="form-control">
+                <select class="form-control" name="ProjectId">
                     <option>Select A Project</option>
                     @foreach (var project in Model)
                     {
@@ -31,12 +31,11 @@
             </div>
         </div>
 
-
-        
-
+            <input type="text" name="EmployeeId" hidden value="@ViewBag.employeeId" />
+    
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Add" class="btn btn-default" />
+                <input type="submit" value="Add" class="btn btn-success btn-block"  />
             </div>
         </div>
 
