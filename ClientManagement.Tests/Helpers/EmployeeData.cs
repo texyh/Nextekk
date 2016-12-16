@@ -25,7 +25,14 @@ namespace ClientManagement.Tests.Helpers
             }
         }
 
-     
+        public static Guid User3Id
+        {
+            get
+            {
+                return new Guid("b40d9807-b4fc-4ddc-9fbb-6dd99c41760f");
+            }
+        }
+
 
         public static List<Employee> Employees
         {
@@ -60,7 +67,17 @@ namespace ClientManagement.Tests.Helpers
 
             }
         }
+        public static Employee employee3
+        {
+            get
+            {
 
+
+                return new Employee { Id = User3Id, Firstname = "James", Lastname = "Don", Gender = Gender.Female };
+
+            }
+        }
+        
         public static EmployeeProject employeeProject
         {
             get

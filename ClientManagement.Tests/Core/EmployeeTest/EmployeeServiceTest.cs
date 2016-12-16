@@ -60,7 +60,10 @@ namespace ClientManagement.Tests.Core.EmployeeTest
         public void Should_Be_Able_To_Retrieve_An_Employee()
         {
             var employeeService = new EmployeeServices(_employeeRepoMock.Object);
+
             var employee = employeeService.GetEmployee(EmployeeData.User2Id);
+
+
             Assert.AreEqual("Lola", employee.Firstname);
             Assert.IsInstanceOfType(employee, typeof(Employee));
 
@@ -70,7 +73,10 @@ namespace ClientManagement.Tests.Core.EmployeeTest
         public void Should_Be_Able_To_Retrieve_An_All_Employees()
         {
             var employeeService = new EmployeeServices(_employeeRepoMock.Object);
+
             var employees = employeeService.GetAllEmployees();
+
+
             Assert.AreEqual(2, employees.Count);
             Assert.IsInstanceOfType(employees, typeof(List<Employee>));
         }
@@ -80,10 +86,52 @@ namespace ClientManagement.Tests.Core.EmployeeTest
         public void Should_Be_Able_To_Assign_Project_To_An_Employee()
         {
             var employeeService = new EmployeeServices(_employeeRepoMock.Object);
+            var employeeProject = EmployeeData.employeeProject;
+            var EmployeeId = employeeProject.EmployeeId;
+            var ProjectId = employeeProject.ProjectId;
 
-            employeeService.AssignProjectToEmployee(EmployeeData.employeeProject);
-            Assert.AreEqual(0, EmployeeData.Employees[0].Projects.Count);
+            employeeService.AssignProjectToEmployee(employeeProject);
+
+            _employeeRepoMock.Verify(x => x.AssignProject(EmployeeId, ProjectId), Times.Once);
         }
 
+
+        [TestMethod, TestCategory(UnitTest)]
+        public void Should_Be_Able_To_ReAssign_Project_To_An_Employee()
+        {
+            var employeeService = new EmployeeServices(_employeeRepoMock.Object);
+            var employeeProject = EmployeeData.employeeProject;
+            var EmployeeId = employeeProject.EmployeeId;
+            var ProjectId = employeeProject.ProjectId;
+
+            employeeService.RemoveEmployeeFromProject(employeeProject);
+
+            _employeeRepoMock.Verify(x => x.RemoveProject(EmployeeId, ProjectId), Times.Once);
+        }
+
+        [TestMethod, TestCategory(UnitTest)]
+        public void Should_Be_Able_To_Save_An_Employee()
+        {
+            var employeeService = new EmployeeServices(_employeeRepoMock.Object);
+            var employee = EmployeeData.employee;
+
+            employeeService.Save(employee);
+
+
+            _employeeRepoMock.Verify(x => x.Update(employee), Times.Once);
+        }
+
+
+        [TestMethod, TestCategory(UnitTest)]
+        public void Should_Be_Able_To_Save_A_Unique_Employee()
+        {
+            var employeeService = new EmployeeServices(_employeeRepoMock.Object);
+            var employee = EmployeeData.employee3;
+
+            employeeService.Save(employee);
+
+
+            _employeeRepoMock.Verify(x => x.Create(employee), Times.Once);
+        }
     }
 }

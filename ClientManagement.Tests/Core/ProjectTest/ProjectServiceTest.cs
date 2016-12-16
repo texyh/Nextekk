@@ -67,6 +67,32 @@ namespace ClientManagement.Tests.Core.ProjectTest
         }
 
 
+        [TestMethod, TestCategory(UnitTest)]
+        public void Should_Be_Able_To_Retrieve_All_Employees_Handling_A_Project()
+        {
+
+            var projectService = new ProjectServices(_projectRepoMock.Object);
+            var ProjectEmployees = projectService.ProjectEmployees(ProjectData.Project1Id);
+
+
+            Assert.IsInstanceOfType(ProjectEmployees, typeof(List<Employee>));
+
+        }
+
+        [TestMethod, TestCategory(UnitTest)]
+        public void Should_Be_Able_To_Save_A_Project()
+        {
+
+            var projectService = new ProjectServices(_projectRepoMock.Object);
+            var project = ProjectData.project;
+
+            projectService.Save(project);
+
+            _projectRepoMock.Verify(x => x.UpdateProject(project), Times.Once);
+
+        }
+
+
 
 
     }

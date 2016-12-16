@@ -111,7 +111,9 @@
     <Compile Include="Helpers\EmployeeData.cs" />
     <Compile Include="Helpers\ProjectData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\ClientControllerTest.cs" />
     <Compile Include="Web\EmployeeControllerTest.cs" />
+    <Compile Include="Web\ProjectControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

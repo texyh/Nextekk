@@ -29,7 +29,7 @@ namespace ClientManagement.Tests.Helpers
         {
             get
             {
-                return new Guid("a40d9803-b4fc-4ddc-9fbb-6dd99c41760f");
+                return new Guid("a40d9805-b6fc-5ddc-9fbb-6dd99c41760f");
             }
         }
 
@@ -52,6 +52,17 @@ namespace ClientManagement.Tests.Helpers
 
             }
         }
+
+        public static Client client2
+        {
+            get
+            {
+                return new Client() { Id = client3Id, Name = "Ministry of Petroluem Resources", Address = "plot 143 summer street kubwa abuja" };
+
+
+            }
+        }
+
         public static List<Client> Clients
         {
             get

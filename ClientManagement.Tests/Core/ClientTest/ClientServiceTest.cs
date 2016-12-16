@@ -99,9 +99,6 @@ namespace ClientManagement.Tests.Core.ClientTest
         }
 
 
-
-
-
     }
 
 }
