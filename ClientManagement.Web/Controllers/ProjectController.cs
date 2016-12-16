@@ -12,7 +12,7 @@ using ClientManagement.Core.Services;
 
 namespace ClientManagement.Web.Controllers
 {
-    [Authorize(Roles = "Manager")]
+    [Authorize]
     public class ProjectController : Controller
     {
         private readonly IProjectServices _projectServices;
@@ -29,7 +29,9 @@ namespace ClientManagement.Web.Controllers
             return View(projects);
         }
 
+
         // GET: Projects/Details/5
+        [Authorize(Roles ="Manager")]
         public ActionResult Details(Guid Id)
         {
             if (Id == null)
@@ -45,6 +47,7 @@ namespace ClientManagement.Web.Controllers
         }
 
 
+        [Authorize(Roles = "Manager")]
         public ActionResult ProjectEmployees(Guid Id)
         {
             var project = _projectServices.GetProject(Id);
@@ -55,16 +58,18 @@ namespace ClientManagement.Web.Controllers
 
 
         // GET: Projects/Create
+        [Authorize(Roles = "Manager")]
         public ActionResult Create()
         {
             return View();
         }
 
+
         // POST: Projects/Create
-       
+        [Authorize(Roles ="Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,Status,StartDate,EndDate,ClientName")] Project project)
+        public ActionResult Create(Project project)
         {
             if (ModelState.IsValid)
             {
@@ -76,7 +81,9 @@ namespace ClientManagement.Web.Controllers
             return View(project);
         }
 
+
         // GET: Projects/Edit/5
+        [Authorize(Roles = "Manager")]
         public ActionResult Edit(Guid Id)
         {
             if (Id == null)
@@ -91,11 +98,12 @@ namespace ClientManagement.Web.Controllers
             return View(project);
         }
 
+
         // POST: Projects/Edit/5
-        
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Description,Status,StartDate,EndDate,ClientId")] Project project)
+        public ActionResult Edit( Project project)
         {
             if (ModelState.IsValid)
             {

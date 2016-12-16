@@ -59,10 +59,13 @@ namespace ClientManagement.Core.Services
 
         }
 
-        //public void RemoveEmployeeFromProject(Employee employee,Project project)
-        //{
-        //    employee.RemoveProject(project);
-        //}
+        public void RemoveEmployeeFromProject(EmployeeProject employeeProject)
+        {
+
+            var EmployeeId = employeeProject.EmployeeId;
+            var ProjectId = employeeProject.ProjectId;
+            _employeeRepository.RemoveProject(EmployeeId,ProjectId);
+        }
 
 
         //Includes Navigation Properties
@@ -75,9 +78,9 @@ namespace ClientManagement.Core.Services
         public List<Project> GetProjects()
         {
             var Projects = _employeeRepository.GetProjects();
-            return Projects;
-
-         
+            return Projects;    
         }
+
+        
     }
 }

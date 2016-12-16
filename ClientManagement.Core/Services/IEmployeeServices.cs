@@ -13,5 +13,6 @@ namespace ClientManagement.Core.Services
         void Save(Employee employee);
         Employee GetEmployeeWithProjects(Guid Id);
         List<Project> GetProjects();
+        void RemoveEmployeeFromProject(EmployeeProject employeeProject);
     }
 }

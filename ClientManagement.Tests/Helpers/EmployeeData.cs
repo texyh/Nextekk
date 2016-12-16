@@ -60,6 +60,14 @@ namespace ClientManagement.Tests.Helpers
 
             }
         }
+
+        public static EmployeeProject employeeProject
+        {
+            get
+            {
+                return new EmployeeProject { EmployeeId = User1Id, ProjectId = User2Id };
+            }
+        }
     }
 }
 

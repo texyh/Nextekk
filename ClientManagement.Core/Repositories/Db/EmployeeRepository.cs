@@ -79,20 +79,24 @@ namespace ClientManagement.Core.Repositories.Db
             var dbEmployee = GetEmployee(employeeId);
 
             dbEmployee.Projects.Add(dbProject);
-            //_context.Entry(dbEmployee).State = System.Data.Entity.EntityState.Modified;
-            //_context.Entry(dbEmployee).State = System.Data.Entity.EntityState.Modified;
-            //_context.Projects.Attach(dbProject);
-            //_context.Employees.Add(dbEmployee);
-            //_context.Employees.Attach(dbEmployee);
-            //dbEmployee.Projects.Add(dbProject);
 
             _context.SaveChanges();
 
+        }
+
+        public void RemoveProject(Guid employeeId,Guid projectId)
+        {
+            var dbEmployee = GetEmployee(employeeId);
+            var dbProject = GetProject(projectId);
+            dbEmployee.Projects.Remove(dbProject);
+            _context.SaveChanges();
         }
 
         public void Dispose()
         {
             _context.Dispose();
         }
+
+        
     }
 }

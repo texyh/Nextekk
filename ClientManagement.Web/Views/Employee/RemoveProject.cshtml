@@ -1,18 +1,13 @@
-﻿
-@model IEnumerable<ClientManagement.Core.Models.Project>
-
-
+﻿@model IEnumerable<ClientManagement.Core.Models.Project>
 
 @{
-    ViewBag.Title = "AssignProject";
+    ViewBag.Title = "RemoveProject";
 }
 
-
 <div class="assignProject">
-    <h2 class="text-center text-capitalize">Assign A Project To @ViewBag.employee.Name</h2>
+    <h2 class="text-capitalize text-center">Reassign @ViewBag.employee.Name From a project</h2>
 
     <div class="row">
-
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -40,7 +35,7 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Add" class="btn btn-warning btn-block" />
+                        <input type="submit" value="Remove" class="btn btn-danger btn-block" />
                     </div>
                 </div>
                 <hr />
@@ -51,3 +46,5 @@
         }
     </div>
 </div>
+
+

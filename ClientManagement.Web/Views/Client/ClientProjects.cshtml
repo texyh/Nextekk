@@ -4,56 +4,57 @@
     ViewBag.Title = "ClientProjects";
 }
 
-<h2>ClientProjects</h2>
 
-<p class="text-center">
-    Projects Handled For @ViewBag.Name
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
+<div class="index">
+    <div class="container">
+        <h2 class="text-center text-capitalize">
+            Projects Handled For @ViewBag.client.Name
+        </h2>
+        <table class="table table-striped table-hover table-bordered">
+            <tr style="background-color:black;color:white;">
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+               
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        
-    </tr>
-}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @item.StartDate.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.EndDate.ToShortDateString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
 
-</table>
-<p>
-    
-    <a href="@Url.Action("Index", "Client")" class="btn btn-warning">Back To List</a>
+                </tr>
+            }
 
-
-</p>
+        </table>
+        <p>
+            <a href="@Url.Action("Index", "Client")" class="btn btn-info btn-xs">Back To List</a>
+        </p>
+    </div>
+</div>

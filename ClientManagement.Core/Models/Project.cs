@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClientManagement.Core.Exceptions;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClientManagement.Core.Models
 {
@@ -21,6 +22,7 @@ namespace ClientManagement.Core.Models
         public ProjectStatus Status { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        [Required]
         public string ClientName { get; set; }
         public Guid  ClientId { get; set; }
 

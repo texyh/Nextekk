@@ -50,22 +50,63 @@ namespace ClientManagement.Tests.Web
 
             Assert.IsInstanceOfType(result, typeof(ViewResult));
             Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(IEnumerable<Employee>));
-            //.AreEqual(2, model);
         }
 
 
         [TestMethod, TestCategory(UnitTest)]
-        public void Create_Should_A_New_Employee()
+        public void Create_Should_Create_A_New_Employee()
         {
             var employeeController = new EmployeeController(_employeeServiceMock.Object);
+            var employee = EmployeeData.employee;
 
-            var result = employeeController.Create(EmployeeData.employee);
 
-            
+            var result = employeeController.Create(employee);
+            _employeeServiceMock.Verify(x => x.Save(employee), Times.Once);
+  
+        }
 
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+        [TestMethod, TestCategory(UnitTest)]
+        public void Should_Be_Able_To_Assign_Project_To_Employee()
+        {
+            var employeeController = new EmployeeController(_employeeServiceMock.Object);
+            var employeeProject = EmployeeData.employeeProject;
+
+
+            var result = employeeController.AssignProject(employeeProject);
+            _employeeServiceMock.Verify(x => x.AssignProjectToEmployee(employeeProject), Times.Once);
             
         }
+
+
+        [TestMethod, TestCategory(UnitTest)]
+        public void Should_Be_Able_To_Remove_Employee_From()
+        {
+            var employeeController = new EmployeeController(_employeeServiceMock.Object);
+            var employeeProject = EmployeeData.employeeProject;
+
+
+            var result = employeeController.RemoveProject(employeeProject);
+            _employeeServiceMock.Verify(x => x.RemoveEmployeeFromProject(employeeProject), Times.Once);
+
+        }
+
+
+
+        [TestMethod, TestCategory(UnitTest)]
+        public void Should_Be_Able_To_Edit_Employee()
+        {
+            var employeeController = new EmployeeController(_employeeServiceMock.Object);
+            var employee = EmployeeData.employee;
+
+
+            var result = employeeController.Edit(employee);
+            _employeeServiceMock.Verify(x => x.Save(employee), Times.Once);
+
+        }
+
+
+
     }
 
 

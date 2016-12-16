@@ -150,5 +150,10 @@ namespace ClientManagement.Core.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public void RemoveProject(Guid employeeId, Guid projectId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

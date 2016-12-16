@@ -58,7 +58,7 @@ namespace ClientManagement.Tests.Helpers
             {
                 return new List<Client>
                 {
-                    new Client { Id = client1Id, Name = "Ministry of Petroluem Resources", Address = "plot 143 summer street kubwa abuja" },
+                    new Client { Id = client1Id, Name = "Ministry of Petroluem Resources", Address = "plot 143 summer street kubwa abuja",Projects = new List<Project>() },
                     new Client { Id = client2Id, Name = "NNPC", Address = "Maitama abuja"}
                 };
             }

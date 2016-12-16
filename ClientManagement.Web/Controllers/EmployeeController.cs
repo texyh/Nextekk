@@ -25,7 +25,7 @@ namespace ClientManagement.Web.Controllers
             _employeeService = employeeService;
         }
 
-        [Authorize(Roles = "Manager")]
+        
         // GET: Employee
         public ActionResult Index()
         {
@@ -42,8 +42,8 @@ namespace ClientManagement.Web.Controllers
             return View(employee);
         }
 
-        [Authorize(Roles = "Manager")]
 
+        
         // GET: Employee/Details/5
         public ActionResult Details(Guid Id)
         {
@@ -82,15 +82,15 @@ namespace ClientManagement.Web.Controllers
             return View();
         }
 
+
         // POST: Employee/Create
-        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Lastname,Firstname,Gender")] Employee employee)
+        public ActionResult Create(Employee employee)
         {
             if (ModelState.IsValid)
             {
-                employee.ApplicationUserId = User.Identity.GetUserId();
+                
                 _employeeService.Save(employee);
                 return RedirectToAction("Office");
             }
@@ -103,13 +103,14 @@ namespace ClientManagement.Web.Controllers
         [Authorize(Roles = "Manager")]
         public ActionResult AssignProject(Guid Id)
         {
-            ViewBag.employeeId = Id;
+            ViewBag.employee = _employeeService.GetEmployee(Id);
             var Projects = _employeeService.GetProjects();
             return View(Projects);
 
         }
 
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AssignProject(EmployeeProject employeeProject)
@@ -119,14 +120,34 @@ namespace ClientManagement.Web.Controllers
 
         }
 
+
+        [Authorize(Roles = "Manager")]
+        public ActionResult RemoveProject(Guid Id)
+        {
+            ViewBag.employee = _employeeService.GetEmployee(Id);
+            var employee = _employeeService.GetEmployee(Id);
+            return View(employee.Projects);
+        }
+
+
+        [Authorize(Roles = "Manager")]
+        [HttpPost]
+        public ActionResult RemoveProject(EmployeeProject employeeProject)
+        {
+            _employeeService.RemoveEmployeeFromProject(employeeProject);
+            return RedirectToAction("Index");
+        }
+
+
         public ActionResult EmployeeProjects(Guid Id)
         {
             var employee = _employeeService.GetEmployee(Id);
-            ViewBag.Name = employee.Lastname + employee.Firstname;
+            ViewBag.Name = employee.Name;
             var employeeProjects = employee.Projects.ToList();
 
             return View(employeeProjects);
         }
+
 
 
         // GET: Employee/Edit/5
@@ -144,10 +165,11 @@ namespace ClientManagement.Web.Controllers
             return View(employee);
         }
 
+
         // POST: Employee/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Lastname,Firstname,Gender")] Employee employee)
+        public ActionResult Edit(Employee employee)
         {
             if (ModelState.IsValid)
             {

@@ -1,67 +1,76 @@
 ﻿@model IEnumerable<ClientManagement.Core.Models.Project>
+@using Microsoft.AspNet.Identity
+
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2 class="text-center">List  Of Company Projects</h2>
+<div class="index">
+    <div class="container">
+        <h2 class="text-center">List  Of Company Projects</h2>
+        @if (User.IsInRole("Manager"))
+        {
+            <p>
+                <a href="@Url.Action("Create", "Project")" class="btn btn-primary">Create New</a>
+            </p>
+        }
+        <table class="table table-hover table-striped table-bordered">
+            <tr style="background-color:black;color:white;">
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClientName)
+                </th>
+                <th></th>
+            </tr>
 
-<p>
-    
-    <a href="@Url.Action("Create", "Project")" class="btn btn-primary">Create New</a>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @item.StartDate.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.EndDate.ToShortDateString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClientName)
+                    </td>
+                    @if (User.IsInRole("Manager"))
+                {
+                        <td>
+                            <div class="btn-group btn-group-xs">
+                                <a href="@Url.Action("Edit", "Project", new {id=item.Id})" class="btn btn-primary btn-xs">Edit</a>
+                                <a href="@Url.Action("ProjectEmployees", "Project", new {id=item.Id})" class="btn btn-success btn-xs">Employees</a>
+                            </div>
+                        </td>
+                    }
+                </tr>
+            }
 
-</p>
-<table class="table table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClientName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClientName)
-        </td>
-        <td>
-            <a href="@Url.Action("Edit", "Project", new {id=item.Id})" class="btn btn-primary btn-xs">Edit</a>
-            <a href="@Url.Action("Details", "Project", new {id=item.Id})" class="btn btn-info btn-xs">Details</a>
-            <a href="@Url.Action("ProjectEmployees", "Project", new {id=item.Id})" class="btn btn-success btn-xs">Employees</a>
-
-        </td>
-    </tr>
-}
-
-</table>
-
+        </table>
+    </div>
+</div>

@@ -4,45 +4,49 @@
     ViewBag.Title = "ProjectEmployees";
 }
 
-<h2>ProjectEmployees</h2>
 
-<p class="text-center">
-   Employees Assinged To @ViewBag.Name
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Lastname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Firstname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender)
-        </th>
-        <th></th>
-    </tr>
+<div class="index">
+    <div class="container">
+        <h2 class="text-center text-capitalize">
+            Employees Assigned To
+        </h2>
+        <h4 class="text-capitalize text-center"><i>@ViewBag.Name</i></h4>
+        <table class="table table-striped table-hover table-bordered">
+            <tr style="background-color:black;color:white;">
+                <th>
+                    @Html.DisplayNameFor(model => model.Lastname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Firstname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Gender)
+                </th>
+                <th></th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lastname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Firstname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-           
-        </td>
-    </tr>
-}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lastname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Firstname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gender)
+                    </td>
+                    <td></td>
+                </tr>
+            }
 
-</table>
-<p>
+        </table>
+        <p>
 
-    @Html.ActionLink("Back to List", "Index")
 
-</p>
+            <a href="@Url.Action("Index", "Project")" class="btn btn-info btn-xs">Back To List</a>
+
+        </p>
+    </div>
+</div>

@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Core\ClientTest\ClientControllerTest.cs" />
     <Compile Include="Core\ClientTest\ClientFileSystemRepositoryTest.cs" />
     <Compile Include="Core\ClientTest\ClientRepositoryTests.cs" />
     <Compile Include="Core\ClientTest\ClientServiceTest.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Core\EmployeeTest\EmployeeRepositoryTests.cs" />
     <Compile Include="Core\EmployeeTest\EmployeeServiceTest.cs" />
     <Compile Include="Core\EmployeeTest\EmployeeTests.cs" />
+    <Compile Include="Core\ProjectTest\ProjectControllerTest.cs" />
     <Compile Include="Core\ProjectTest\ProjectFileSystemRepositoryTest.cs" />
     <Compile Include="Core\ProjectTest\ProjectRepositoryTests.cs" />
     <Compile Include="Core\ProjectTest\ProjectServiceTest.cs" />

@@ -297,7 +297,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\site.css" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -384,6 +384,7 @@
     <Content Include="Views\Client\ClientProjects.cshtml" />
     <Content Include="Views\Project\ProjectEmployees.cshtml" />
     <Content Include="Views\Employee\Office.cshtml" />
+    <Content Include="Views\Employee\RemoveProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

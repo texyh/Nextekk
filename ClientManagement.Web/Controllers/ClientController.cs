@@ -12,7 +12,7 @@ using ClientManagement.Core.Services;
 
 namespace ClientManagement.Web.Controllers
 {
-    [Authorize(Roles = "Manager")]
+    [Authorize]
     public class ClientController : Controller
     {
         private readonly IClientServices _clientService;
@@ -21,12 +21,14 @@ namespace ClientManagement.Web.Controllers
         {
             _clientService = clientService;
         }
+
         // GET: Clients
         public ActionResult Index()
         {
             var clients = _clientService.GetAllClients();
             return View(clients);
         }
+
 
         //Used for Autocomplete By The A Project Action
         [HttpPost]
@@ -59,22 +61,25 @@ namespace ClientManagement.Web.Controllers
         }
 
 
+        [Authorize(Roles = "Manager")]
         public ActionResult ClientProjects(Guid Id)
         {
-            //ViewBag.Name = client.Name;
+            ViewBag.client = _clientService.GetClient(Id);
             var ClientProjects = _clientService.GetAllClientProjects(Id);
             return View(ClientProjects);
         }
 
 
         // GET: Clients/Create
+        [Authorize(Roles = "Manager")]
         public ActionResult Create()
         {
             return View();
         }
 
+
         // POST: Clients/Create
-        
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name,Address")] Client client)
@@ -89,7 +94,9 @@ namespace ClientManagement.Web.Controllers
             return View(client);
         }
 
+
         // GET: Clients/Edit/5
+        [Authorize(Roles = "Manager")]
         public ActionResult Edit(Guid Id)
         {
             if (Id == null)
@@ -105,10 +112,10 @@ namespace ClientManagement.Web.Controllers
         }
 
         // POST: Clients/Edit/5
-      
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ClientName,Address")] Client client)
+        public ActionResult Edit( Client client)
         {
             if (ModelState.IsValid)
             {

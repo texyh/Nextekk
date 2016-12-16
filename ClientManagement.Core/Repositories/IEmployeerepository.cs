@@ -14,5 +14,6 @@ namespace ClientManagement.Core.Repositories
         Project GetProject(Guid Id);
         Employee GetEmployeeWithProjects(Guid Id);
         List<Project> GetProjects();
+        void RemoveProject(Guid employeeId, Guid projectId);
     }
 }

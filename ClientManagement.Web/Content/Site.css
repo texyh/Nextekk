@@ -5,8 +5,7 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -21,4 +20,50 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.edit{
+    background-color:#00695c;
+    margin-top:-19px;
+    height:600px;
+    color:white;
+}
+.edit-form{
+   
+    padding-top:50px;
+}
+
+h2{
+    padding-top:50px;
+}
+.create{
+    background-color:#9933CC;
+    margin-top:-19px;
+    height:600px;
+    color:white;
+}
+.index{
+    height:600px;
+
+}
+.assignProject{
+    background-color:#3E4551;
+    margin-top:-19px;
+    height:600px;
+    color:white;
+}
+.office{
+    background-color:#263238;
+    margin-top:-19px;
+    height:600px;
+    color:white;
+}
+.home-index{
+    background-color:#3F729B;
+    color:white;
+    height:300px;
+   
+}
+.table{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

@@ -21,6 +21,14 @@ namespace ClientManagement.Core.Models
 
         public virtual ICollection<Project> Projects { get; set; }
 
+        public string Name
+        {
+            get
+            {
+                return Lastname + " " + Firstname;
+            }
+        }
+
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<ClientManagement.Core.Models.Employee>
+@using Microsoft.AspNet.Identity;
 
 @{
     ViewBag.Title = "Index";
@@ -6,46 +7,53 @@
 
 <h2 class="text-center">List Of All Company Staff</h2>
 
+<div class="container index">
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Lastname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Firstname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Projects)
-        </th>
-        <th></th>
-    </tr>
+    <table class="table table-striped table-hover table-bordered table-responsive">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lastname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Firstname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Projects.Count)
-        </td>
-        <td>
-            <a href="@Url.Action("Details", "Employee", new {id=item.Id})" class="btn btn-primary btn-xs">Details</a>
-            <a href="@Url.Action("AssignProject", "Employee", new {id=item.Id})" class="btn btn-success btn-xs">AssignProject</a>
-            <a href="@Url.Action("EmployeeProjects", "Employee", new {id=item.Id})" class="btn btn-info btn-xs">ViewProjects</a>
-            <a href="@Url.Action("ReAssignProject", "Employee", new {id=item.Id})" class="btn btn-danger btn-xs">ReAssignProject</a>
+        <tr style="background-color:black;color:white;">
+            <th>
+                @Html.DisplayNameFor(model => model.Lastname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects)
+            </th>
+            <th></th>
+        </tr>
 
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lastname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Projects.Count)
+                </td>
+                @if (User.IsInRole("Manager"))
+                {
+                    <td>
+                        <div class="btn-group btn-group-xs">
+                            <a href="@Url.Action("AssignProject", "Employee", new { id = item.Id })" class="btn btn-success btn-xs">AssignProject</a>
+                            <a href="@Url.Action("EmployeeProjects", "Employee", new { id = item.Id })" class="btn btn-info btn-xs">ViewProjects</a>
+                            <a href="@Url.Action("RemoveProject", "Employee", new { id = item.Id })" class="btn btn-danger btn-xs">ReAssignProject</a>
+                        </div>
+                    </td>
+                }
+            </tr>
+        }
 
-</table>
+    </table>
+</div>
