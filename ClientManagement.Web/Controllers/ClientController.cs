@@ -82,7 +82,7 @@ namespace ClientManagement.Web.Controllers
         [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Address")] Client client)
+        public ActionResult Create(Client client)
         {
             if (ModelState.IsValid)
             {

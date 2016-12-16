@@ -63,5 +63,35 @@ namespace ClientManagement.Tests.Web
 
         }
 
+
+        [TestMethod, TestCategory(UnitTest)]
+        public void Should_Be_Able_To_Edit_Client()
+        {
+            var clientController = new ClientController(_clientServiceMock.Object);
+            var client = ClientData.client;
+
+
+            var result = clientController.Edit(client);
+            _clientServiceMock.Verify(x => x.Save(client), Times.Once);
+
+        }
+
+
+
+        [TestMethod, TestCategory(UnitTest)]
+        public void Should_Be_Able_To_Returns_All_Client_Projects()
+        {
+            var clientController = new ClientController(_clientServiceMock.Object);
+            var client = ClientData.client;
+
+            var result = clientController.ClientProjects(client.Id);
+            var viewResult = result as ViewResult;
+            var model = viewResult.ViewData.Model;
+
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            _clientServiceMock.Verify(x => x.GetAllClientProjects(client.Id), Times.Once);
+
+        }
+
     }
 }

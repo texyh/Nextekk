@@ -51,7 +51,7 @@ namespace ClientManagement.Web.Controllers
         public ActionResult ProjectEmployees(Guid Id)
         {
             var project = _projectServices.GetProject(Id);
-            var projectEmployees = project.Employees.ToList();
+            var projectEmployees = _projectServices.ProjectEmployees(Id);
             ViewBag.Name = project.Title;
             return View(projectEmployees);
         }
