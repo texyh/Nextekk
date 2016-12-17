@@ -92,7 +92,7 @@
 <script>
     $(document).ready(function () {
         $.ajax({
-            url: "/Client/Index1",
+            url:"@Url.Action("JsonClients","Client")",
             type: "POST",
             dataType: "json",
             data: {},

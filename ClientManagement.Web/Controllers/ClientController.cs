@@ -30,23 +30,12 @@ namespace ClientManagement.Web.Controllers
         }
 
 
-        //Used for Autocomplete By The A Project Action
-        [HttpPost]
-        public JsonResult Index(string Prefix)
-        {
-            
-            var clients = _clientService.GetAllClients();
-             
-            var ClientName = (from client in clients
-                            where client.Name.Contains(Prefix)
-                            select new { client.Name });
-            return Json(ClientName, JsonRequestBehavior.AllowGet);
-        }
+       
 
 
-        //Used for Autocomplete By The A Project Action
+        //Used for Dropdown By The A Project Action
         [HttpPost]
-        public JsonResult Index1()
+        public JsonResult JsonClients()
         {
 
             var clients = _clientService.GetAllClients();
