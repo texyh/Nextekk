@@ -3,9 +3,9 @@
 }
 
 <div class="home-index">
-    <div class="container text-center">
-        <h2>Welcome To ClientManagementSystem</h2>
-        <h3>ClientMangementSystem is a system that helps you manage your Clients, Employees and Projects seemlessly.</h3>
+    <div class="container text-center displaying">
+        <h2>Welcome To <span id="displaying"></span></h2>
+        <h3>ClientMangementSystem helps you manage your Clients, Employees and Projects seemlessly.</h3>
     </div>
 </div>
 
@@ -71,3 +71,20 @@
             </p>
 
 </section>
+
+@section Scripts{
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/modernizr")
+
+<script>
+    $(function () {
+        $("#displaying").typed({
+            strings: ["ClientManagementSystem!!!"
+            ],
+            typeSpeed: 200
+        });
+    });
+    </script>
+
+
+    }
