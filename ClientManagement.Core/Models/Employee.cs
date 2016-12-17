@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClientManagement.Core.Exceptions;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClientManagement.Core.Models
 {
@@ -14,8 +15,11 @@ namespace ClientManagement.Core.Models
             Projects = new List<Project>();
         }
         public Guid Id { get; set; }
+        [Required]
         public string Lastname { get; set; }
+        [Required]
         public string Firstname { get; set; }
+        [Required]
         public Gender Gender { get; set; }
         public string ApplicationUserId { get; set; }
 
