@@ -1,5 +1,7 @@
 ﻿@import 'https://fonts.googleapis.com/css?family=Raleway|Roboto';
 @import 'https://fonts.googleapis.com/css?family=Shrikhand';
+@import 'https://fonts.googleapis.com/css?family=Playfair+Display';
+@import 'https://fonts.googleapis.com/css?family=Exo';
 
 
 body {
@@ -31,6 +33,7 @@ textarea {
     margin-top:-19px;
     height:600px;
     color:white;
+    font-family: 'Exo', sans-serif;
 }
 .edit-form{
    
@@ -45,6 +48,7 @@ h2{
     margin-top:-19px;
     height:600px;
     color:white;
+    font-family: 'Exo', sans-serif;
 }
 .index{
     height:600px;
@@ -56,12 +60,14 @@ h2{
     margin-top:-19px;
     height:600px;
     color:white;
+    font-family: 'Exo', sans-serif;
 }
 .office{
     background-color:#263238;
     margin-top:-19px;
     height:600px;
     color:white;
+    font-family: 'Exo', sans-serif;
 }
 .home-index{
     background-color:#3F729B;
