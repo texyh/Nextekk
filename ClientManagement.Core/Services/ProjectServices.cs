@@ -48,7 +48,5 @@ namespace ClientManagement.Core.Services
 
 
 
-
-
     }
 }

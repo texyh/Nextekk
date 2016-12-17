@@ -44,6 +44,19 @@ namespace ClientManagement.Web.Controllers
         }
 
 
+        //Used for Autocomplete By The A Project Action
+        [HttpPost]
+        public JsonResult Index1()
+        {
+
+            var clients = _clientService.GetAllClients();
+
+            var ClientName = (from client in clients
+                              select new { name = client.Name,value=client.Id });
+            return Json(ClientName, JsonRequestBehavior.AllowGet);
+        }
+
+
 
         // GET: Clients/Details/5
         public ActionResult Details(Guid Id)

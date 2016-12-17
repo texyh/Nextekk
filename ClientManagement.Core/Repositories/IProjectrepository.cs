@@ -12,6 +12,8 @@ namespace ClientManagement.Core.Repositories
         List<Project> GetAllProjects();
         Project GetProject(Guid Id);
         Project GetProjectOnly(Guid Id);
-        
+      
+
+
     }
 }

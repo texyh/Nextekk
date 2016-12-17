@@ -72,8 +72,8 @@ namespace ClientManagement.Web.Controllers
         public ActionResult Create(Project project)
         {
             if (ModelState.IsValid)
-            {
-
+            { 
+          
                 _projectServices.Save(project);
                 return RedirectToAction("Index");
             }

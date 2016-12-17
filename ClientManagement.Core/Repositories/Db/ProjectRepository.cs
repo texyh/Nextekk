@@ -76,11 +76,13 @@ namespace ClientManagement.Core.Repositories
             return _context.Projects.Find(Id);
         }
 
-        
+       
 
         public void Dispose()
         {
             _context.Dispose();
         }
+
+      
     }
 }
